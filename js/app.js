@@ -160,9 +160,13 @@ window.addEventListener('hashchange', route);
 route();
 
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
+  // this module can finish running after the page 'load' event already fired
+  // (top-level awaits above), so register right away in that case.
+  const registerSW = () => {
     navigator.serviceWorker.register('./sw.js').catch(() => {
       /* offline support degrades gracefully without a SW */
     });
-  });
+  };
+  if (document.readyState === 'complete') registerSW();
+  else window.addEventListener('load', registerSW);
 }
