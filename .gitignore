@@ -1,0 +1,8 @@
+# internal work files that stay only on this computer
+research/
+_qa/
+content/_incoming/
+SPEC.md
+CONTENT-GUIDE.md
+.playwright-cli/
+.DS_Store

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>בדיקות: כסף מגיל 16</title>
+<style>
+  body { font-family: -apple-system, "Heebo", sans-serif; max-width: 820px; margin: 0 auto; padding: 24px; background: #f3eee3; color: #26221c; }
+  h1 { font-size: 22px; }
+  .case { border: 1px solid #e1d8c6; border-radius: 10px; padding: 12px 16px; margin-bottom: 8px; background: #fffcf5; }
+  .case.pass { border-inline-start: none; }
+  .case .status { font-weight: 700; }
+  .pass .status { color: #2f5d4b; }
+  .fail .status { color: #a4452c; }
+  .detail { font-size: 13px; color: #6d665b; margin-top: 4px; white-space: pre-wrap; }
+  #summary { font-weight: 700; margin: 16px 0; font-size: 17px; }
+</style>
+</head>
+<body>
+<h1>בדיקות קלות למנוע האפליקציה</h1>
+<p>בודק ישירות את js/render-blocks.js ו-js/search.js על תוכן הבדיקה (content/lessons/_fixture.js), בלי דפדפן אוטומטי. לא בודק עיצוב, רק לוגיקה.</p>
+<div id="summary">מריץ...</div>
+<div id="results"></div>
+
+<script type="module">
+import { processBlocks, moneyText, moneyHtml, parseInline, stripMarkup } from './js/render-blocks.js';
+import { search, buildSearchIndex } from './js/search.js';
+import fixture from './content/lessons/_fixture.js';
+import { glossary } from './content/glossary.js';
+import { sources } from './content/sources.js';
+
+const results = [];
+async function check(name, fn) {
+  try {
+    const detail = await fn();
+    results.push({ name, pass: true, detail: detail || '' });
+  } catch (e) {
+    results.push({ name, pass: false, detail: e.message });
+  }
+}
+function assert(cond, msg) {
+  if (!cond) throw new Error(msg || 'assertion failed');
+}
+
+// --- block rendering: every block type in the fixture produces non-empty html ---
+await check('כל סוגי הבלוקים ב-§4 מרנדרים משהו', () => {
+  const { html } = processBlocks(fixture.lesson, { checked: fixture.checked });
+  const requiredClasses = ['lesson-section', 'box law', 'box example', 'box rec', 'box pro', 'box warn', 'blk-list', 'table-wrap', 'receipt', 'compare', 'flow', 'box calc'];
+  const missing = requiredClasses.filter((c) => !html.includes(c.includes(' ') ? `class="${c}` : c));
+  assert(missing.length === 0, `חסרים: ${missing.join(', ')}`);
+  return `${html.length} תווי HTML`;
+});
+
+await check('כל בלוק מקבל data-blk ייחודי', () => {
+  const { html, index } = processBlocks(fixture.lesson, { checked: fixture.checked });
+  const ids = [...html.matchAll(/data-blk="([^"]+)"/g)].map((m) => m[1]);
+  const unique = new Set(ids);
+  assert(ids.length === unique.size, 'יש data-blk כפולים');
+  assert(index.length > 0, 'אין ערכים באינדקס');
+  return `${ids.length} בלוקים מזוהים, ${index.length} ברי-חיפוש`;
+});
+
+// --- inline markup ---
+await check('סימון פנימי: **מודגש**, [[מושג]], {{מקור}}', () => {
+  const html = parseInline('זה **מודגש** עם [[term-vat|מע״מ]] ו-{{src:x}}');
+  assert(html.includes('<strong>מודגש</strong>'), 'בולד לא עבד');
+  assert(html.includes('class="term-link"'), 'קישור מושג לא עבד');
+  assert(html.includes('class="src-chip"'), 'תגית מקור לא עבדה');
+  const plain = stripMarkup('זה **מודגש** עם [[term-vat|מע״מ]] ו-{{src:x}}');
+  assert(plain.includes('מודגש') && plain.includes('מע״מ') && !plain.includes('{{'), 'ניקוי הסימון לאינדקס לא עבד');
+});
+
+// --- money formatting ---
+await check('סכום שלילי מוצג עם − (לא מקף רגיל) וכיוון LTR', () => {
+  const text = moneyText(-70);
+  assert(text === '−70 ₪', `קיבלנו "${text}" (קוד ${[...text].map((c) => c.codePointAt(0).toString(16))})`);
+  const html = moneyHtml(-70);
+  assert(html.includes('dir="ltr"'), 'חסר dir=ltr');
+  assert(moneyText(65) === '65 ₪', 'סכום חיובי לא תקין');
+});
+
+// --- quiz shape ---
+await check('יש בדיוק 5 שאלות מבחן בתוכן הבדיקה', () => {
+  assert(fixture.quiz.length === 5, `יש ${fixture.quiz.length} שאלות`);
+  fixture.quiz.forEach((q, i) => {
+    assert(Array.isArray(q.options) && q.options.length === 4, `שאלה ${i + 1}: אין 4 אפשרויות`);
+    assert(q.correct >= 0 && q.correct < 4, `שאלה ${i + 1}: אינדקס תשובה לא תקין`);
+  });
+});
+
+// --- fixture wiring ---
+await check('לתוכן הבדיקה יש שני סרטונים, אחד embeddable ואחד לא', () => {
+  assert(fixture.videos.length === 2, `יש ${fixture.videos.length} סרטונים`);
+  assert(fixture.videos.some((v) => v.embeddable === true), 'חסר סרטון embeddable');
+  assert(fixture.videos.some((v) => v.embeddable === false), 'חסר סרטון לא embeddable');
+});
+
+await check('כל source-id וglossary-id שהתוכן מפנה אליהם קיימים', () => {
+  const srcIds = new Set(sources.map((s) => s.id));
+  const missingSrc = fixture.sources.filter((id) => !srcIds.has(id));
+  assert(missingSrc.length === 0, `מקורות חסרים: ${missingSrc.join(', ')}`);
+  const termIds = new Set(glossary.map((t) => t.id));
+  const missingTerm = fixture.glossary.filter((id) => !termIds.has(id));
+  assert(missingTerm.length === 0, `מושגים חסרים: ${missingTerm.join(', ')}`);
+});
+
+// --- search: the three query variants from SPEC §9 acceptance check 5 ---
+await check('חיפוש מוצא את מע״מ בשלוש הצורות (מע״מ / מעמ / ומע"מ)', async () => {
+  const [r1, r2, r3] = await Promise.all([search('מע״מ'), search('מעמ'), search('ומע"מ')]);
+  assert(r1.some((r) => r.type === 'lesson' && r.slug === '_fixture'), 'לא נמצא עם מע״מ');
+  assert(r2.some((r) => r.type === 'lesson' && r.slug === '_fixture'), 'לא נמצא עם מעמ');
+  assert(r3.some((r) => r.type === 'lesson' && r.slug === '_fixture'), 'לא נמצא עם ומע"מ');
+  return `${r1.length} / ${r2.length} / ${r3.length} תוצאות`;
+});
+
+await check('אינדקס החיפוש כולל מילון ומקורות', async () => {
+  const index = await buildSearchIndex();
+  assert(index.some((e) => e.type === 'glossary'), 'אין ערכי מילון באינדקס');
+  assert(index.some((e) => e.type === 'source'), 'אין ערכי מקורות באינדקס');
+});
+
+function render() {
+  const el = document.getElementById('results');
+  el.innerHTML = results
+    .map(
+      (r) => `<div class="case ${r.pass ? 'pass' : 'fail'}">
+        <span class="status">${r.pass ? 'עבר' : 'נכשל'}</span>. ${r.name}
+        ${r.detail ? `<div class="detail">${String(r.detail)}</div>` : ''}
+      </div>`
+    )
+    .join('');
+  const passCount = results.filter((r) => r.pass).length;
+  document.getElementById('summary').textContent = `${passCount} מתוך ${results.length} בדיקות עברו`;
+}
+
+render();
+</script>
+</body>
+</html>

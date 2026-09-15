@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <rect width="100" height="100" rx="22" fill="#2f5d4b"/>
+  <circle cx="50" cy="50" r="30" fill="none" stroke="#fffcf5" stroke-width="4.5"/>
+  <text x="50" y="59" font-family="Georgia, serif" font-size="34" font-weight="700" fill="#fffcf5" text-anchor="middle">₪</text>
+</svg>
