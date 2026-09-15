@@ -40,17 +40,17 @@ export const lessons = [
 
   { slug: 'payslip', title: 'איך תלוש שכר עובד', part: 'b', status: 'soon' },
   { slug: 'youth-rights', title: 'זכויות בני נוער בעבודה', part: 'b', status: 'soon' },
-  { slug: 'form-101', title: 'טופס 101', part: 'b', status: 'soon' },
+  { slug: 'form-101', title: 'טופס 101', part: 'b', status: 'ready' },
   { slug: 'form-106', title: 'טופס 106 והחזרי מס', part: 'b', status: 'soon' },
 
-  { slug: 'money-flow', title: 'איך כסף זז בעסק', part: 'c', status: 'soon' },
-  { slug: 'turnover-profit', title: 'מחזור, הכנסה ורווח', part: 'c', status: 'soon' },
+  { slug: 'money-flow', title: 'איך כסף זז בעסק', part: 'c', status: 'ready' },
+  { slug: 'turnover-profit', title: 'מחזור, הכנסה ורווח', part: 'c', status: 'ready' },
   { slug: 'store-bookkeeping', title: 'הנהלת הכספים של החנות', part: 'c', status: 'soon' },
-  { slug: 'business-expenses', title: 'הוצאות עסקיות', part: 'c', status: 'soon' },
+  { slug: 'business-expenses', title: 'הוצאות עסקיות', part: 'c', status: 'ready' },
   { slug: 'osek-patur', title: 'עוסק פטור', part: 'c', status: 'ready' },
   { slug: 'osek-murshe', title: 'עוסק מורשה', part: 'c', status: 'ready' },
   { slug: 'small-business-owner', title: 'בעל עסק זעיר', part: 'c', status: 'ready' },
-  { slug: 'invoices-receipts', title: 'חשבוניות וקבלות', part: 'c', status: 'soon' },
+  { slug: 'invoices-receipts', title: 'חשבוניות וקבלות', part: 'c', status: 'ready' },
   { slug: 'israel-invoices', title: 'חשבוניות ישראל', part: 'c', status: 'soon' },
   { slug: 'israel-vs-abroad', title: 'מכירות לישראל מול חו״ל', part: 'c', status: 'soon' },
   { slug: 'fx', title: 'מט״ח', part: 'c', status: 'soon' },
@@ -62,8 +62,8 @@ export const lessons = [
   { slug: 'vat', title: 'מע״מ', part: 'd', status: 'soon' },
 
   { slug: 'opening-business', title: 'פתיחת עסק', part: 'e', status: 'ready' },
-  { slug: 'annual-report', title: 'דוח שנתי ומקדמות', part: 'e', status: 'soon' },
-  { slug: 'documents', title: 'שמירת מסמכים', part: 'e', status: 'soon' },
+  { slug: 'annual-report', title: 'דוח שנתי ומקדמות', part: 'e', status: 'ready' },
+  { slug: 'documents', title: 'שמירת מסמכים', part: 'e', status: 'ready' },
 
   { slug: 'protect-money', title: 'הגנה על כסף', part: 'f', status: 'soon' },
   { slug: 'privacy', title: 'פרטיות', part: 'f', status: 'soon' },

@@ -260,6 +260,123 @@ export const sources = [
     "updatedDate": null,
     "checked": "2026-09-14"
   },
+  {
+    "id": "src-nevo-bookkeeping-instructions-1973",
+    "org": "נבו (מאגר חקיקה)",
+    "title": "הוראות מס הכנסה (ניהול פנקסי חשבונות), התשל״ג-1973",
+    "url": "https://www.nevo.co.il/law_html/law01/255_179.htm",
+    "publishedDate": null,
+    "updatedDate": null,
+    "checked": "2026-09-15"
+  },
+  {
+    "id": "src-taxes-circular-24-2004",
+    "org": "רשות המסים",
+    "title": "חוזר מס הכנסה מס׳ 24/2004 - שינויים בהוראות ניהול ספרים - מסמכים ממוחשבים",
+    "url": "https://www.gov.il/BlobFolder/policy/income-tax-professional-inst-24-2004/he/Policy_IncomeTaxInst_hoz24-2004.pdf",
+    "publishedDate": "2004-09-14",
+    "updatedDate": null,
+    "checked": "2026-09-15"
+  },
+  {
+    "id": "src-taxes-computerized-bookkeeping-instructions",
+    "org": "רשות המסים",
+    "title": "הוראות ניהול ספרים בסביבה ממוחשבת",
+    "url": "https://www.gov.il/BlobFolder/generalpage/hor-software-other/he/IncomeTax_IncomeTaxEmployersInfo_horaot_4_01.pdf",
+    "publishedDate": null,
+    "updatedDate": null,
+    "checked": "2026-09-15"
+  },
+  {
+    "id": "src-taxes-income-tax-ordinance-full",
+    "org": "רשות המסים",
+    "title": "פקודת מס הכנסה [נוסח חדש] - נוסח מלא",
+    "url": "https://www.gov.il/BlobFolder/legalinfo/law_pkudat_mas_hachnasa/he/LegalInformation_kesher_פקודת מס הכנסה [נוסח חדש] - לא מרובד.pdf",
+    "publishedDate": null,
+    "updatedDate": null,
+    "checked": "2026-09-15"
+  },
+  {
+    "id": "src-taxes-glossary",
+    "org": "רשות המסים",
+    "title": "מאגר מונחים רשות המסים",
+    "url": "https://www.gov.il/he/pages/taxes-glossary",
+    "publishedDate": null,
+    "updatedDate": "2026-03-15",
+    "checked": "2026-09-15"
+  },
+  {
+    "id": "src-taxes-annual-report-2025-service",
+    "org": "רשות המסים",
+    "title": "דיווח ותשלום - דוח מס שנתי 2025 ליחידים ובעלי עסקים שאינם חברה (טופס 1301)",
+    "url": "https://www.gov.il/he/service/reporting-and-payment-2025-annual-tax-report-for-individuals",
+    "publishedDate": null,
+    "updatedDate": null,
+    "checked": "2026-09-15"
+  },
+  {
+    "id": "src-taxes-reporting-payment-dates-2026",
+    "org": "רשות המסים",
+    "title": "קביעת מועדי הדיווח והתשלום לדוחות תקופתיים במע״מ ולמקדמות מס הכנסה ולניכויים לשנת המס 2026",
+    "url": "https://www.gov.il/he/pages/pa151025-2",
+    "publishedDate": "2025-10-15",
+    "updatedDate": null,
+    "checked": "2026-09-15"
+  },
+  {
+    "id": "src-nevo-minor-annual-report-threshold",
+    "org": "נבו (מאגר חקיקה)",
+    "title": "צו מס הכנסה (סכום הכנסה המחייב קטין בהגשת דוח), התשמ״ג-1983",
+    "url": "https://www.nevo.co.il/law_html/law01/255_205.htm",
+    "publishedDate": null,
+    "updatedDate": null,
+    "checked": "2026-09-15"
+  },
+  {
+    "id": "src-nevo-exemption-from-filing-1988",
+    "org": "נבו (מאגר חקיקה)",
+    "title": "תקנות מס הכנסה (פטור מהגשת דין וחשבון), התשמ״ח-1988",
+    "url": "https://www.nevo.co.il/law_html/law01/255_202.htm",
+    "publishedDate": null,
+    "updatedDate": null,
+    "checked": "2026-09-15"
+  },
+  {
+    "id": "src-nevo-exemption-online-report-2010",
+    "org": "נבו (מאגר חקיקה)",
+    "title": "תקנות מס הכנסה (פטור מהגשת דוח עצמאי מקוון), התש״ע-2010",
+    "url": "https://www.nevo.co.il/law_html/law00/73533.htm",
+    "publishedDate": null,
+    "updatedDate": null,
+    "checked": "2026-09-15"
+  },
+  {
+    "id": "src-taxes-form-101-pdf-full",
+    "org": "רשות המסים",
+    "title": "טופס 101 המלא (PDF): כרטיס עובד ובקשה להקלה ולתיאום מס על ידי המעביד",
+    "url": "https://www.gov.il/BlobFolder/service/itc101/he/Service_Pages_Income_tax_annual-report-2024_itc101.pdf",
+    "publishedDate": null,
+    "updatedDate": "2025-11-01",
+    "checked": "2026-09-15"
+  },
+  {
+    "id": "src-taxes-know-your-rights-guide-2024",
+    "org": "רשות המסים",
+    "title": "דע זכויותיך וחובותיך: מדריך למילוי טופס דין וחשבון שנתי לשנת 2024",
+    "url": "https://www.gov.il/BlobFolder/generalpage/income-tax-guide-knowyourright/he/Guides_IncomeTax_da-2024.pdf",
+    "publishedDate": null,
+    "updatedDate": null,
+    "checked": "2026-09-15"
+  },
+  {
+    "id": "src-nevo-depreciation-regulations",
+    "org": "נבו (מאגר חקיקה)",
+    "title": "תקנות מס הכנסה (פחת) 1941 התוספת השנייה: שיעורי פחת למחשבים",
+    "url": "https://www.nevo.co.il/law_html/law01/255_396.htm",
+    "publishedDate": null,
+    "updatedDate": null,
+    "checked": "2026-09-15"
+  },
 ];
 
 export function getSource(id) {
