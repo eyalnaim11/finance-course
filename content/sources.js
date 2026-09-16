@@ -101,7 +101,7 @@ export const sources = [
   {
     "id": "src-nevo-income-tax-ordinance-ch8",
     "org": "נבו (מאגר חקיקה)",
-    "title": "פקודת מס הכנסה פרק שמיני: בעל עסק זעיר (סעיפים 87א עד 87ז)",
+    "title": "פקודת מס הכנסה (נוסח מלא)",
     "url": "https://www.nevo.co.il/law_html/law00/84255.htm",
     "publishedDate": null,
     "updatedDate": null,
@@ -376,6 +376,87 @@ export const sources = [
     "publishedDate": null,
     "updatedDate": null,
     "checked": "2026-09-15"
+  },
+  {
+    "id": "src-taxes-israel-invoice-topic",
+    "org": "רשות המסים",
+    "title": "חשבוניות ישראל (עמוד הנושא)",
+    "url": "https://www.gov.il/he/departments/topics/israel-invoice/govil-landing-page",
+    "publishedDate": null,
+    "updatedDate": "2026-09-03",
+    "checked": "2026-09-16"
+  },
+  {
+    "id": "src-taxes-israel-invoice-announcement-2024",
+    "org": "רשות המסים",
+    "title": "הודעת דוברות: תכנית חשבוניות ישראל עוברת לשלב הבא",
+    "url": "https://www.gov.il/he/pages/sa201124-2",
+    "publishedDate": "2024-11-20",
+    "updatedDate": null,
+    "checked": "2026-09-16"
+  },
+  {
+    "id": "src-taxes-personal-import-guide",
+    "org": "רשות המסים",
+    "title": "מדריך ליבוא אישי באמצעות דואר חבילות או חברות שילוח",
+    "url": "https://www.gov.il/he/pages/guide-to-importing-personally-via-parcels-or-shipping-companies",
+    "publishedDate": "2019-09-23",
+    "updatedDate": "2026-06-21",
+    "checked": "2026-09-16"
+  },
+  {
+    "id": "src-nevo-consumer-protection-law",
+    "org": "נבו (מאגר חקיקה)",
+    "title": "חוק הגנת הצרכן, התשמ״א-1981, סעיפים 14ג עד 14ה: עסקת מכר מרחוק וביטול עסקה",
+    "url": "https://www.nevo.co.il/law_html/law00/70305.htm",
+    "publishedDate": null,
+    "updatedDate": null,
+    "checked": "2026-09-16"
+  },
+  {
+    "id": "src-consumer-protection-authority-returns",
+    "org": "הרשות להגנת הצרכן ולסחר הוגן",
+    "title": "ביטול עסקה: באינטרנט ובחנויות",
+    "url": "https://www.gov.il/he/pages/returns",
+    "publishedDate": "2024-11-04",
+    "updatedDate": "2025-11-04",
+    "checked": "2026-09-16"
+  },
+  {
+    "id": "src-wikisource-credit-card-law",
+    "org": "ויקיטקסט (מראה לנוסח חוק כרטיסי חיוב, נבו חסם גישה לחוק הזה בלי התחברות)",
+    "title": "נוסח חוק כרטיסי חיוב, התשמ״ו-1986, סעיף 10: הפסקת תשלום בשל אי הספקה",
+    "url": "https://he.wikisource.org/wiki/חוק_כרטיסי_חיוב",
+    "publishedDate": null,
+    "updatedDate": null,
+    "checked": "2026-09-16"
+  },
+  {
+    "id": "src-boi-representative-rate",
+    "org": "בנק ישראל",
+    "title": "מהו שער חליפין יציג",
+    "url": "https://www.boi.org.il/roles/markets/reprate/",
+    "publishedDate": null,
+    "updatedDate": "2024-07-17",
+    "checked": "2026-09-16"
+  },
+  {
+    "id": "src-mof-personal-import-150-proposal",
+    "org": "משרד האוצר",
+    "title": "שר האוצר מרחיב את הפטור ממס על יבוא אישי לסכום של 150 דולר (הודעה על כוונה)",
+    "url": "https://www.gov.il/he/pages/press_26112025",
+    "publishedDate": "2025-11-26",
+    "updatedDate": null,
+    "checked": "2026-09-16"
+  },
+  {
+    "id": "src-nevo-vat-law-export-zero-rate",
+    "org": "נבו (מאגר חקיקה)",
+    "title": "חוק מס ערך מוסף, התשל״ו-1975, פרק ז׳: שיעור אפס ופטורים (סעיף 30)",
+    "url": "https://www.nevo.co.il/law_html/law00/70179.htm",
+    "publishedDate": null,
+    "updatedDate": null,
+    "checked": "2026-09-16"
   },
 ];
 
