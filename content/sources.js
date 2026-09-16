@@ -458,6 +458,87 @@ export const sources = [
     "updatedDate": null,
     "checked": "2026-09-16"
   },
+  {
+    "id": "src-nevo-wage-protection-law",
+    "org": "נבו (מאגר חקיקה)",
+    "title": "חוק הגנת השכר, תשי\"ח-1958",
+    "url": "https://www.nevo.co.il/law_html/law00/71689.htm",
+    "publishedDate": null,
+    "updatedDate": null,
+    "checked": "2026-09-16"
+  },
+  {
+    "id": "src-mol-youth-rights-faq",
+    "org": "משרד העבודה",
+    "title": "זכויות בני נוער עובדים בחופשת הקיץ",
+    "url": "https://www.gov.il/he/pages/youth-rights-faq",
+    "publishedDate": "2026-06-21",
+    "updatedDate": null,
+    "checked": "2026-09-16"
+  },
+  {
+    "id": "src-nevo-hours-of-work-rest-law",
+    "org": "נבו (מאגר חקיקה)",
+    "title": "חוק שעות עבודה ומנוחה, תשי\"א-1951",
+    "url": "https://www.nevo.co.il/law_html/law00/5174.htm",
+    "publishedDate": null,
+    "updatedDate": null,
+    "checked": "2026-09-16"
+  },
+  {
+    "id": "src-mol-pension-extension-order-2011",
+    "org": "משרד העבודה",
+    "title": "צו הרחבה לביטוח פנסיוני מקיף במשק לפי חוק הסכמים קיבוציים (נוסח משולב)",
+    "url": "https://www.gov.il/BlobFolder/guide/labor-wage/he/workers-rights_working-conditions_pension_H096.pdf",
+    "publishedDate": "2011-09-27",
+    "updatedDate": null,
+    "checked": "2026-09-16"
+  },
+  {
+    "id": "src-nevo-youth-labor-law",
+    "org": "נבו (מאגר חקיקה)",
+    "title": "חוק עבודת הנוער, תשי\"ג-1953",
+    "url": "https://www.nevo.co.il/law_html/law00/4273.htm",
+    "publishedDate": null,
+    "updatedDate": null,
+    "checked": "2026-09-16"
+  },
+  {
+    "id": "src-nevo-notice-to-employee-law",
+    "org": "נבו (מאגר חקיקה)",
+    "title": "חוק הודעה לעובד ולמועמד לעבודה (תנאי עבודה והליכי מיון וקבלה לעבודה), תשס\"ב-2002",
+    "url": "https://www.nevo.co.il/law_html/law00/71702.htm",
+    "publishedDate": null,
+    "updatedDate": null,
+    "checked": "2026-09-16"
+  },
+  {
+    "id": "src-mol-work-rights-complaints",
+    "org": "משרד העבודה",
+    "title": "הגשת תלונה על מעסיקים בשל הפרת חוקי עבודה",
+    "url": "https://www.gov.il/he/service/work-rights-violation-complaints",
+    "publishedDate": null,
+    "updatedDate": "2026-09-08",
+    "checked": "2026-09-16"
+  },
+  {
+    "id": "src-nevo-deduction-regulations-1993",
+    "org": "נבו (מאגר חקיקה)",
+    "title": "תקנות מס הכנסה ומס מעסיקים (ניכוי ממשכורת ומשכר עבודה ותשלום מס מעסיקים), תשנ\"ג-1993",
+    "url": "https://www.nevo.co.il/law_html/law01/255_163.htm",
+    "publishedDate": null,
+    "updatedDate": null,
+    "checked": "2026-09-16"
+  },
+  {
+    "id": "src-taxes-form135-refund",
+    "org": "רשות המסים",
+    "title": "בקשה להחזר מס - דוח מקוצר למס הכנסה עבור יחידים המבקשים החזר מס (טופס 135)",
+    "url": "https://www.gov.il/he/service/itc135",
+    "publishedDate": null,
+    "updatedDate": null,
+    "checked": "2026-09-16"
+  },
 ];
 
 export function getSource(id) {

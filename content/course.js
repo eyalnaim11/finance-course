@@ -38,10 +38,10 @@ export const lessons = [
   { slug: 'interest-credit', title: 'ריבית ואשראי', part: 'a', status: 'soon' },
   { slug: 'budget', title: 'תקציב אישי', part: 'a', status: 'soon' },
 
-  { slug: 'payslip', title: 'איך תלוש שכר עובד', part: 'b', status: 'soon' },
-  { slug: 'youth-rights', title: 'זכויות בני נוער בעבודה', part: 'b', status: 'soon' },
+  { slug: 'payslip', title: 'איך תלוש שכר עובד', part: 'b', status: 'ready' },
+  { slug: 'youth-rights', title: 'זכויות בני נוער בעבודה', part: 'b', status: 'ready' },
   { slug: 'form-101', title: 'טופס 101', part: 'b', status: 'ready' },
-  { slug: 'form-106', title: 'טופס 106 והחזרי מס', part: 'b', status: 'soon' },
+  { slug: 'form-106', title: 'טופס 106 והחזרי מס', part: 'b', status: 'ready' },
 
   { slug: 'money-flow', title: 'איך כסף זז בעסק', part: 'c', status: 'ready' },
   { slug: 'turnover-profit', title: 'מחזור, הכנסה ורווח', part: 'c', status: 'ready' },
