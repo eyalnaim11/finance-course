@@ -539,6 +539,123 @@ export const sources = [
     "updatedDate": null,
     "checked": "2026-09-16"
   },
+  {
+    "id": "src-boi-current-account-faq",
+    "org": "בנק ישראל",
+    "title": "שאלות ותשובות - חשבון עובר ושב",
+    "url": "https://boi.org.il/q-a/מידע-ושרות-לציבור/חשבון-עוש/",
+    "publishedDate": null,
+    "updatedDate": "2022-11-15",
+    "checked": "2026-09-17"
+  },
+  {
+    "id": "src-boi-payment-cards-types",
+    "org": "בנק ישראל",
+    "title": "כרטיסי חיוב (עמוד רשמי באתר בנק ישראל)",
+    "url": "https://www.boi.org.il/roles/paymentsystems/paymentmeans/paymentcards/",
+    "publishedDate": null,
+    "updatedDate": "2024-03-24",
+    "checked": "2026-09-17"
+  },
+  {
+    "id": "src-boi-restricted-accounts-checks",
+    "org": "בנק ישראל",
+    "title": "מידע בנושאים צרכניים - הגבלת חשבונות ולקוחות",
+    "url": "https://www.boi.org.il/he/ConsumerInformation/ConsumerIssues/pages/checksgeneral.aspx",
+    "publishedDate": null,
+    "updatedDate": null,
+    "checked": "2026-09-17"
+  },
+  {
+    "id": "src-boi-restricted-accounts-guide",
+    "org": "בנק ישראל",
+    "title": "המדריך לחשבונות מוגבלים",
+    "url": "https://www.boi.org.il/information/bank-paymnts/guide/restricted_accounts/",
+    "publishedDate": null,
+    "updatedDate": null,
+    "checked": "2026-09-17"
+  },
+  {
+    "id": "src-boi-fee-reform-circular-h2851",
+    "org": "בנק ישראל - הפיקוח על הבנקים",
+    "title": "חוזר ח-06-2851: רפורמה בתחום העמלות הנגבות ממשקי בית ועסקים קטנים על שירותי ניהול חשבון תשלום וכרטיס חיוב מיידי (דביט)",
+    "url": "https://www.boi.org.il/media/0cgabv01/h2851.pdf",
+    "publishedDate": "2026-06-21",
+    "updatedDate": null,
+    "checked": "2026-09-17"
+  },
+  {
+    "id": "src-boi-fees-info-page",
+    "org": "בנק ישראל",
+    "title": "עמלות (מידע ושירות לציבור)",
+    "url": "https://boi.org.il/information/fees/",
+    "publishedDate": null,
+    "updatedDate": null,
+    "checked": "2026-09-17"
+  },
+  {
+    "id": "src-boi-fee-rules-2008",
+    "org": "בנק ישראל",
+    "title": "כללי הבנקאות (שירות ללקוח)(עמלות), התשס\"ח-2008 - התעריפון המלא",
+    "url": "https://boi.org.il/media/w2lgmymp/159a.pdf",
+    "publishedDate": null,
+    "updatedDate": "2025-04-01",
+    "checked": "2026-09-17"
+  },
+  {
+    "id": "src-boi-press-releases-interest-rate",
+    "org": "בנק ישראל",
+    "title": "הודעות לעיתונות (כולל הודעת ריבית בנק ישראל העדכנית)",
+    "url": "https://www.boi.org.il/publications/pressreleases/",
+    "publishedDate": null,
+    "updatedDate": null,
+    "checked": "2026-09-17"
+  },
+  {
+    "id": "src-boi-directive-325-overdraft",
+    "org": "בנק ישראל - הפיקוח על הבנקים",
+    "title": "ניהול בנקאי תקין 325: ניהול מסגרות אשראי בחשבונות עובר ושב",
+    "url": "https://www.boi.org.il/media/4hshzbs4/325.pdf",
+    "publishedDate": null,
+    "updatedDate": "2020-12-30",
+    "checked": "2026-09-17"
+  },
+  {
+    "id": "src-boi-nominal-effective-calculator",
+    "org": "בנק ישראל",
+    "title": "מחשבונים וכלים - ריבית נומינלית אפקטיבית",
+    "url": "https://www.boi.org.il/information/מחשבונים-וכלים/ריבית-נומינלית-אפקטיבית/",
+    "publishedDate": null,
+    "updatedDate": null,
+    "checked": "2026-09-17"
+  },
+  {
+    "id": "src-boi-equator-loans-comparison",
+    "org": "בנק ישראל",
+    "title": "קו המשווה - השוואת ריביות הלוואות",
+    "url": "https://boi.org.il/information/bank-paymnts/financial-education/campaigns/boi-equator/loans/",
+    "publishedDate": null,
+    "updatedDate": null,
+    "checked": "2026-09-17"
+  },
+  {
+    "id": "src-boi-credit-data-system",
+    "org": "בנק ישראל",
+    "title": "בנקיפדיה - בשביל מה צריך את מערכת נתוני האשראי",
+    "url": "https://www.boi.org.il/information/bankipedia/centralbank/בשביל-מה-צריך-את-מערכת-נתוני-האשראי/",
+    "publishedDate": null,
+    "updatedDate": "2023-09-27",
+    "checked": "2026-09-17"
+  },
+  {
+    "id": "src-boi-financial-responsibility-guide-teens",
+    "org": "בנק ישראל ומשרד החינוך",
+    "title": "\"לוקחים אחריות על הכסף שלנו\" - מדריך למנחה",
+    "url": "https://www.boi.org.il/media/q1mi1qro/פעילות-לבני-נוער-מדריך-למנחה.pdf",
+    "publishedDate": null,
+    "updatedDate": null,
+    "checked": "2026-09-17"
+  },
 ];
 
 export function getSource(id) {

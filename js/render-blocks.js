@@ -62,6 +62,7 @@ export function calcResultText(result, suffix) {
   const n = Number.isFinite(result) ? result : 0;
   if (suffix === undefined || suffix === null || suffix === '₪') return moneyText(n);
   const str = Number.isInteger(n) ? n.toLocaleString('en-US') : n.toLocaleString('en-US', { maximumFractionDigits: 2 });
+  if (suffix === '%') return `${str}%`;
   return suffix ? `${str} ${suffix}` : str;
 }
 

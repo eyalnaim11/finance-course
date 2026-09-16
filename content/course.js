@@ -32,11 +32,11 @@ export const parts = [
 // status is always 'soon' right now. When a content file for a slug exists,
 // change ONLY that lesson's status to 'ready'.
 export const lessons = [
-  { slug: 'bank-account', title: 'איך חשבון בנק עובד', part: 'a', status: 'soon' },
-  { slug: 'payment-methods', title: 'כרטיסים ואמצעי תשלום', part: 'a', status: 'soon' },
-  { slug: 'fees', title: 'עמלות', part: 'a', status: 'soon' },
-  { slug: 'interest-credit', title: 'ריבית ואשראי', part: 'a', status: 'soon' },
-  { slug: 'budget', title: 'תקציב אישי', part: 'a', status: 'soon' },
+  { slug: 'bank-account', title: 'איך חשבון בנק עובד', part: 'a', status: 'ready' },
+  { slug: 'payment-methods', title: 'כרטיסים ואמצעי תשלום', part: 'a', status: 'ready' },
+  { slug: 'fees', title: 'עמלות', part: 'a', status: 'ready' },
+  { slug: 'interest-credit', title: 'ריבית ואשראי', part: 'a', status: 'ready' },
+  { slug: 'budget', title: 'תקציב אישי', part: 'a', status: 'ready' },
 
   { slug: 'payslip', title: 'איך תלוש שכר עובד', part: 'b', status: 'ready' },
   { slug: 'youth-rights', title: 'זכויות בני נוער בעבודה', part: 'b', status: 'ready' },
