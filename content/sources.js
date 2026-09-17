@@ -423,13 +423,13 @@ export const sources = [
     "checked": "2026-09-16"
   },
   {
-    "id": "src-wikisource-credit-card-law",
-    "org": "ויקיטקסט (מראה לנוסח חוק כרטיסי חיוב, נבו חסם גישה לחוק הזה בלי התחברות)",
-    "title": "נוסח חוק כרטיסי חיוב, התשמ״ו-1986, סעיף 10: הפסקת תשלום בשל אי הספקה",
-    "url": "https://he.wikisource.org/wiki/חוק_כרטיסי_חיוב",
+    "id": "src-nevo-payment-services-law",
+    "org": "נבו (מאגר חקיקה)",
+    "title": "חוק שירותי תשלום, התשע\"ט-2019 (נוסח עדכני 19.8.2026)",
+    "url": "https://www.nevo.co.il/law_html/law00/159510.htm",
     "publishedDate": null,
-    "updatedDate": null,
-    "checked": "2026-09-16"
+    "updatedDate": "2026-08-19",
+    "checked": "2026-09-17"
   },
   {
     "id": "src-boi-representative-rate",
