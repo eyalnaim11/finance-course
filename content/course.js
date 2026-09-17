@@ -65,18 +65,18 @@ export const lessons = [
   { slug: 'annual-report', title: 'דוח שנתי ומקדמות', part: 'e', status: 'ready' },
   { slug: 'documents', title: 'שמירת מסמכים', part: 'e', status: 'ready' },
 
-  { slug: 'protect-money', title: 'הגנה על כסף', part: 'f', status: 'soon' },
-  { slug: 'privacy', title: 'פרטיות', part: 'f', status: 'soon' },
-  { slug: 'business-fraud', title: 'הונאות בעסק', part: 'f', status: 'soon' },
+  { slug: 'protect-money', title: 'הגנה על כסף', part: 'f', status: 'ready' },
+  { slug: 'privacy', title: 'פרטיות', part: 'f', status: 'ready' },
+  { slug: 'business-fraud', title: 'הונאות בעסק', part: 'f', status: 'ready' },
 
-  { slug: 'saving', title: 'חיסכון', part: 'g', status: 'soon' },
-  { slug: 'investing', title: 'השקעות בסיסיות', part: 'g', status: 'soon' },
-  { slug: 'compound-inflation', title: 'ריבית דריבית ואינפלציה', part: 'g', status: 'soon' },
+  { slug: 'saving', title: 'חיסכון', part: 'g', status: 'ready' },
+  { slug: 'investing', title: 'השקעות בסיסיות', part: 'g', status: 'ready' },
+  { slug: 'compound-inflation', title: 'ריבית דריבית ואינפלציה', part: 'g', status: 'ready' },
 
-  { slug: 'split-money', title: 'איך לחלק כסף', part: 'h', status: 'soon' },
-  { slug: 'separate-money', title: 'הפרדת כסף אישי ועסקי', part: 'h', status: 'soon' },
-  { slug: 'monthly-tracking', title: 'מעקב חודשי', part: 'h', status: 'soon' },
-  { slug: 'yearly-review', title: 'סיכום שנתי', part: 'h', status: 'soon' },
+  { slug: 'split-money', title: 'איך לחלק כסף', part: 'h', status: 'ready' },
+  { slug: 'separate-money', title: 'הפרדת כסף אישי ועסקי', part: 'h', status: 'ready' },
+  { slug: 'monthly-tracking', title: 'מעקב חודשי', part: 'h', status: 'ready' },
+  { slug: 'yearly-review', title: 'סיכום שנתי', part: 'h', status: 'ready' },
 ];
 
 export function lessonNumber(slug) {

@@ -656,6 +656,231 @@ export const sources = [
     "updatedDate": null,
     "checked": "2026-09-17"
   },
+  {
+    "id": "src-cyber-phishing-blocked-message",
+    "org": "מערך הסייבר הלאומי",
+    "title": "קיבלתם הודעה שחשבונכם נחסם? כך תתנהלו באופן בטוח",
+    "url": "https://www.gov.il/he/pages/got_a_message_that_your_account_has_been_blocked",
+    "publishedDate": "2024-10-14",
+    "updatedDate": null,
+    "checked": "2026-09-17"
+  },
+  {
+    "id": "src-cyber-vishing",
+    "org": "מערך הסייבר הלאומי",
+    "title": "הונאות טלפוניות – אל תענו!",
+    "url": "https://www.gov.il/he/pages/vishing_1",
+    "publishedDate": "2023-07-04",
+    "updatedDate": "2024-08-27",
+    "checked": "2026-09-17"
+  },
+  {
+    "id": "src-boi-warning-impersonation",
+    "org": "בנק ישראל",
+    "title": "אזהרה לציבור מפני הונאות על ידי התחזות לבנק ישראל או לתאגידים בנקאיים",
+    "url": "https://www.boi.org.il/information/public-enquiries-unit/warning_public/",
+    "publishedDate": null,
+    "updatedDate": "2024-11-19",
+    "checked": "2026-09-17"
+  },
+  {
+    "id": "src-cyber-event-report",
+    "org": "מערך הסייבר הלאומי",
+    "title": "דיווח על אירוע סייבר",
+    "url": "https://www.gov.il/he/service/cyber-event-report",
+    "publishedDate": null,
+    "updatedDate": "2026-05-13",
+    "checked": "2026-09-17"
+  },
+  {
+    "id": "src-privacy-authority-amendment13-qa",
+    "org": "הרשות להגנת הפרטיות",
+    "title": "שאלות ותשובות – תיקון מס' 13 לחוק הגנת הפרטיות",
+    "url": "https://www.gov.il/he/pages/tikun13_qa",
+    "publishedDate": "2025-08-14",
+    "updatedDate": "2025-08-18",
+    "checked": "2026-09-17"
+  },
+  {
+    "id": "src-privacy-authority-amendment13-guide-pdf",
+    "org": "הרשות להגנת הפרטיות",
+    "title": "מדריך | תיקון מס' 13 לחוק הגנת הפרטיות",
+    "url": "https://www.gov.il/BlobFolder/reports/guide_tikon13_professional/he/tikun%2013%20_170825.pdf",
+    "publishedDate": null,
+    "updatedDate": null,
+    "checked": "2026-09-17"
+  },
+  {
+    "id": "src-privacy-authority-individual-database-guide",
+    "org": "הרשות להגנת הפרטיות",
+    "title": "מדריך תקנות הגנת הפרטיות (אבטחת מידע) לעצמאים ולעסקים קטנים",
+    "url": "https://www.gov.il/he/pages/management_by_an_individual",
+    "publishedDate": "2020-10-21",
+    "updatedDate": "2025-07-29",
+    "checked": "2026-09-17"
+  },
+  {
+    "id": "src-taxes-fake-tax-authority-warning",
+    "org": "רשות המסים",
+    "title": "הבהרה בנוגע להודעה המתחזה להודעה מרשות המסים",
+    "url": "https://www.gov.il/he/pages/pa240425-1",
+    "publishedDate": "2025-04-24",
+    "updatedDate": null,
+    "checked": "2026-09-17"
+  },
+  {
+    "id": "src-meta-avoid-scams-phishing",
+    "org": "Meta (מקור רשמי של הפלטפורמה)",
+    "title": "Avoid scams and phishing attempts",
+    "url": "https://www.meta.com/help/policies/1273750300141929/",
+    "publishedDate": null,
+    "updatedDate": null,
+    "checked": "2026-09-17"
+  },
+  {
+    "id": "src-police-fake-transfer-screenshot",
+    "org": "משטרת ישראל",
+    "title": "סוגרים עסקאות באתרי יד שנייה? היזהרו מניסיונות הונאה",
+    "url": "https://www.gov.il/he/pages/police_01-12-22_phishing",
+    "publishedDate": "2022-12-01",
+    "updatedDate": null,
+    "checked": "2026-09-17"
+  },
+  {
+    "id": "src-shopify-fraud-analysis",
+    "org": "Shopify (מקור רשמי של הפלטפורמה)",
+    "title": "Reviewing orders with fraud analysis",
+    "url": "https://help.shopify.com/en/manual/fulfillment/managing-orders/protecting-orders/fraud-analysis",
+    "publishedDate": null,
+    "updatedDate": null,
+    "checked": "2026-09-17"
+  },
+  {
+    "id": "src-shopify-preventing-fraud",
+    "org": "Shopify (מקור רשמי של הפלטפורמה)",
+    "title": "Preventing fraud",
+    "url": "https://help.shopify.com/en/manual/payments/fraud-prevention/preventing-fraud",
+    "publishedDate": null,
+    "updatedDate": null,
+    "checked": "2026-09-17"
+  },
+  {
+    "id": "src-cyber-safe-email",
+    "org": "מערך הסייבר הלאומי",
+    "title": "המלצות לשימוש בטוח בדואר אלקטרוני",
+    "url": "https://www.gov.il/he/pages/safe_mail",
+    "publishedDate": "2019-11-25",
+    "updatedDate": null,
+    "checked": "2026-09-17"
+  },
+  {
+    "id": "src-btl-child-savings-faq",
+    "org": "ביטוח לאומי",
+    "title": "חיסכון לכל ילד. שאלות ותשובות",
+    "url": "https://www.btl.gov.il/About/faq/SaveMoneyFAQ/Pages/default.aspx",
+    "publishedDate": null,
+    "updatedDate": null,
+    "checked": "2026-09-17"
+  },
+  {
+    "id": "src-boi-bank-deposit",
+    "org": "בנק ישראל",
+    "title": "פיקדון בנקאי",
+    "url": "https://www.boi.org.il/information/bank-paymnts/savingsandinvestmentproducts/pikadon/",
+    "publishedDate": null,
+    "updatedDate": "2025-02-24",
+    "checked": "2026-09-17"
+  },
+  {
+    "id": "src-boi-deposit-insurance-2015",
+    "org": "בנק ישראל",
+    "title": "סוגיות שכרוכות בהחלת ביטוח פיקדונות",
+    "url": "https://boi.org.il/publications/pressreleases/סוגיות-שכרוכות-בהחלת-ביטוח-פיקדונות/",
+    "publishedDate": "2015-06-16",
+    "updatedDate": null,
+    "checked": "2026-09-17"
+  },
+  {
+    "id": "src-isa-getting-started",
+    "org": "רשות ניירות ערך",
+    "title": "צעדים ראשונים בהשקעות",
+    "url": "https://www.investors.isa.gov.il/nav-index/nav-bar/getting-started",
+    "publishedDate": "2026-05-07",
+    "updatedDate": null,
+    "checked": "2026-09-17"
+  },
+  {
+    "id": "src-isa-red-flags",
+    "org": "רשות ניירות ערך",
+    "title": "דגלים אדומים להונאות בשוק ההון",
+    "url": "https://www.investors.isa.gov.il/nav-index/nav-bar/Red-Flag",
+    "publishedDate": "2025-12-16",
+    "updatedDate": null,
+    "checked": "2026-09-17"
+  },
+  {
+    "id": "src-cbs-cpi-booklet-153",
+    "org": "הלשכה המרכזית לסטטיסטיקה",
+    "title": "מדד המחירים לצרכן (חוברת הסבר סטטיסטיקל 153)",
+    "url": "https://www.cbs.gov.il/he/Statistical/price_ind153h.pdf",
+    "publishedDate": null,
+    "updatedDate": null,
+    "checked": "2026-09-17"
+  },
+  {
+    "id": "src-cbs-cpi-subject-page",
+    "org": "הלשכה המרכזית לסטטיסטיקה",
+    "title": "מדד המחירים לצרכן (עמוד נושא)",
+    "url": "https://www.cbs.gov.il/he/subjects/Pages/מדד-המחירים-לצרכן.aspx",
+    "publishedDate": null,
+    "updatedDate": null,
+    "checked": "2026-09-17"
+  },
+  {
+    "id": "src-cbs-cpi-press-august-2026",
+    "org": "הלשכה המרכזית לסטטיסטיקה",
+    "title": "מדד המחירים לצרכן אוגוסט 2026",
+    "url": "https://www.cbs.gov.il/he/mediarelease/Madad/Pages/2026/מדד-המחירים-לצרכן-אוגוסט-2026.aspx",
+    "publishedDate": "2026-09-15",
+    "updatedDate": null,
+    "checked": "2026-09-17"
+  },
+  {
+    "id": "src-boi-inflation-target-review",
+    "org": "בנק ישראל",
+    "title": "בנק ישראל מפרסם דוח ומסקנות מתהליך בחינת יעד האינפלציה",
+    "url": "https://boi.org.il/publications/pressreleases/6-11-24/",
+    "publishedDate": "2024-11-06",
+    "updatedDate": "2024-12-02",
+    "checked": "2026-09-17"
+  },
+  {
+    "id": "src-boi-bankipedia-compound-interest",
+    "org": "בנק ישראל",
+    "title": "בנקיפדיה: ריבית דריבית",
+    "url": "https://www.boi.org.il/information/bankipedia/centralbank/ריבית-דריבית/",
+    "publishedDate": null,
+    "updatedDate": "2025-12-29",
+    "checked": "2026-09-17"
+  },
+  {
+    "id": "src-boi-financial-education-forum",
+    "org": "בנק ישראל - הפיקוח על הבנקים",
+    "title": "פעילות הפיקוח בתחום צרכנות בנקאית (פורום חינוך פיננסי)",
+    "url": "https://www.boi.org.il/information/bank-paymnts/financial-education/50256/",
+    "publishedDate": null,
+    "updatedDate": null,
+    "checked": "2026-09-17"
+  },
+  {
+    "id": "src-boi-annual-bank-report-guide",
+    "org": "בנק ישראל",
+    "title": "\"ת.ז. בנקאית\" - דוח שנתי מקוצר (מדריך)",
+    "url": "https://www.boi.org.il/information/bank-paymnts/guide/54776/",
+    "publishedDate": null,
+    "updatedDate": null,
+    "checked": "2026-09-17"
+  },
 ];
 
 export function getSource(id) {
