@@ -9,8 +9,12 @@ function resultHref(r) {
   if (r.type === 'lesson') return `#/lesson/${r.slug}/${r.stage}`;
   if (r.type === 'glossary') return '#/glossary';
   if (r.type === 'source') return '#/sources';
+  if (r.type === 'sim') return `#/sim/${r.id}`;
+  if (r.type === 'sheet') return `#/sheet/${r.id}`;
   return '#/';
 }
+
+const GROUP_TITLE = { glossary: 'מילון מושגים', source: 'מקורות', sim: 'סימולציות', sheet: 'דפי עזר' };
 
 function groupResults(results) {
   const groups = new Map();
@@ -18,7 +22,7 @@ function groupResults(results) {
     const key = r.type === 'lesson' ? `lesson:${r.slug}` : r.type;
     if (!groups.has(key)) {
       groups.set(key, {
-        title: r.type === 'lesson' ? r.title : r.type === 'glossary' ? 'מילון מושגים' : 'מקורות',
+        title: r.type === 'lesson' ? r.title : GROUP_TITLE[r.type] || '',
         items: [],
       });
     }

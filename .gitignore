@@ -7,3 +7,4 @@ CONTENT-GUIDE.md
 .playwright-cli/
 .DS_Store
 tools/
+SPEC-EXTRAS.md

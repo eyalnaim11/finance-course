@@ -14,7 +14,7 @@ import { lessons as courseLessons, getLesson } from '../content/course.js';
 import { glossary } from '../content/glossary.js';
 import { sources } from '../content/sources.js';
 import { buildTextIndex, buildVideosIndex, escapeHtml } from './render-blocks.js';
-import { loadLessonContent } from './content-loader.js';
+import { loadLessonContent, loadSimsRegistry, loadSheetsRegistry } from './content-loader.js';
 
 const PREFIX_LETTERS = new Set(['ה', 'ו', 'ב', 'ל', 'מ', 'ש', 'כ']);
 const STRIP_RE = /[֑-ׇ״׳'"]/;
@@ -119,6 +119,19 @@ export async function buildSearchIndex() {
     sources.filter((s) => FIXTURE_MODE || !s.fixture).forEach((s) => {
       const text = [s.org, s.title].filter(Boolean).join(' ');
       entries.push(makeEntry({ type: 'source', id: s.id, title: s.title }, text));
+    });
+    // sims/sheets (SPEC-EXTRAS §2, "if simple"): title + one-line summary
+    // only, not full content blocks. Both loaders fail soft to [] when the
+    // registry file does not exist yet.
+    const sims = await loadSimsRegistry();
+    sims.forEach((s) => {
+      const text = [s.title, s.summary].filter(Boolean).join(' ');
+      entries.push(makeEntry({ type: 'sim', id: s.id, title: s.title }, text));
+    });
+    const sheets = await loadSheetsRegistry();
+    sheets.forEach((s) => {
+      const text = [s.title, s.summary].filter(Boolean).join(' ');
+      entries.push(makeEntry({ type: 'sheet', id: s.id, title: s.title }, text));
     });
     return entries;
   })();

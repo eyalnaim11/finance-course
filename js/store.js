@@ -3,17 +3,37 @@
 // once the user signs in from #/login. The app must be fully usable with no
 // login at all.
 //
-// Shape (SPEC.md §6):
+// Shape (SPEC.md §6, extended by SPEC-EXTRAS.md §3):
 // { v:1, lessons: { [slug]: { stages:{start,learn,practice,quiz,finish},
 //   practiceText:{exercise,thinking}, quizBest, quizLast, taskDone,
-//   completedAt } }, last:{slug,stage}, updatedAt }
+//   completedAt } },
+//   tests: { [testId]: { best, last, lastAnswers, at } },
+//   sims:  { [simId]:  { best, last, at } },
+//   dashboard: { personal, business, updatedAt } | null,
+//   last:{slug,stage}, updatedAt }
+//
+// tests/sims/dashboard are all optional keys: old saved progress (from
+// before SPEC-EXTRAS) has none of them, and normalizeState() below fills in
+// empty defaults for any of the three that are missing without touching the
+// lessons data that was already there.
 import { firebaseConfig } from '../firebase-config.js';
 
 const LOCAL_KEY = 'finance-course:progress:v1';
 const STAGE_KEYS = ['start', 'learn', 'practice', 'quiz', 'finish'];
+const DASHBOARD_DEBOUNCE_MS = 400;
 
 function emptyProgress() {
-  return { v: 1, lessons: {}, last: null, updatedAt: Date.now() };
+  return { v: 1, lessons: {}, tests: {}, sims: {}, dashboard: null, last: null, updatedAt: Date.now() };
+}
+
+// backward compatibility: a progress object saved before tests/sims/dashboard
+// existed simply lacks those keys. Fill in empty defaults in place so every
+// other function in this module can assume they are always present.
+function normalizeState(state) {
+  if (!state.tests || typeof state.tests !== 'object') state.tests = {};
+  if (!state.sims || typeof state.sims !== 'object') state.sims = {};
+  if (state.dashboard === undefined) state.dashboard = null;
+  return state;
 }
 
 function emptyLesson() {
@@ -33,7 +53,7 @@ function readLocal() {
     if (!raw) return emptyProgress();
     const parsed = JSON.parse(raw);
     if (!parsed || parsed.v !== 1 || typeof parsed.lessons !== 'object') return emptyProgress();
-    return parsed;
+    return normalizeState(parsed);
   } catch (e) {
     return emptyProgress();
   }
@@ -75,11 +95,44 @@ function mergeProgress(a, b) {
       completedAt: laDone >= lbDone ? la.completedAt || null : lb.completedAt || null,
     };
   }
+  // tests/sims: per id take the max best score and the newer `at`/`last`.
+  function mergeScoreMap(ma, mb) {
+    const out = {};
+    const ids = new Set([...Object.keys(ma || {}), ...Object.keys(mb || {})]);
+    for (const id of ids) {
+      const ia = ma && ma[id];
+      const ib = mb && mb[id];
+      if (!ia) { out[id] = ib; continue; }
+      if (!ib) { out[id] = ia; continue; }
+      const atA = ia.at ? new Date(ia.at).getTime() : 0;
+      const atB = ib.at ? new Date(ib.at).getTime() : 0;
+      const newer = atB >= atA ? ib : ia;
+      out[id] = {
+        best: Math.max(ia.best || 0, ib.best || 0),
+        last: newer.last,
+        lastAnswers: newer.lastAnswers,
+        at: atB >= atA ? ib.at : ia.at,
+      };
+    }
+    return out;
+  }
+
+  // dashboard: whole object replaced by whichever side has the newer
+  // updatedAt (it is one small user-edited record, not per-id data).
+  function mergeDashboard(da, db) {
+    if (!da) return db || null;
+    if (!db) return da;
+    return (db.updatedAt || 0) > (da.updatedAt || 0) ? db : da;
+  }
+
   const aUpdated = a.updatedAt || 0;
   const bUpdated = b.updatedAt || 0;
   return {
     v: 1,
     lessons,
+    tests: mergeScoreMap(a.tests, b.tests),
+    sims: mergeScoreMap(a.sims, b.sims),
+    dashboard: mergeDashboard(a.dashboard, b.dashboard),
     last: bUpdated > aUpdated ? b.last : a.last,
     updatedAt: Math.max(aUpdated, bUpdated),
   };
@@ -107,6 +160,8 @@ export function createStore() {
     if (!state.lessons[slug]) state.lessons[slug] = emptyLesson();
     return state.lessons[slug];
   }
+
+  let dashboardTimer = null;
 
   async function bindUser(user) {
     uid = user.uid;
@@ -194,6 +249,57 @@ export function createStore() {
     // never linked from any menu a real learner can reach.
     completedCount() {
       return Object.values(state.lessons).filter((l) => l.completedAt).length;
+    },
+
+    // ---- tests (SPEC-EXTRAS §3): score is a correct-answer count for a
+    // part test, 0-100 for the final exam. best is always the max seen. ----
+    saveTestResult(id, score, answers) {
+      const prev = state.tests[id];
+      state.tests[id] = {
+        best: Math.max((prev && prev.best) || 0, score),
+        last: score,
+        lastAnswers: answers || [],
+        at: new Date().toISOString(),
+      };
+      persist();
+    },
+    getTestResult(id) {
+      return state.tests[id] || null;
+    },
+
+    // ---- sims (SPEC-EXTRAS §3): score is always 0-100. ----
+    saveSimResult(id, score) {
+      const prev = state.sims[id];
+      state.sims[id] = {
+        best: Math.max((prev && prev.best) || 0, score),
+        last: score,
+        at: new Date().toISOString(),
+      };
+      persist();
+    },
+    getSimResult(id) {
+      return state.sims[id] || null;
+    },
+
+    // ---- dashboard (SPEC-EXTRAS §3): null means "never edited, show the
+    // view's own example defaults". Edits are debounced ~400ms so typing in
+    // a number field does not hit localStorage on every keystroke. ----
+    getDashboard() {
+      return state.dashboard;
+    },
+    saveDashboard(data) {
+      state.dashboard = { ...data, updatedAt: Date.now() };
+      if (dashboardTimer) clearTimeout(dashboardTimer);
+      dashboardTimer = setTimeout(() => {
+        dashboardTimer = null;
+        persist();
+      }, DASHBOARD_DEBOUNCE_MS);
+      notify(); // let an open dashboard view reflect the edit immediately
+    },
+    resetDashboard() {
+      if (dashboardTimer) { clearTimeout(dashboardTimer); dashboardTimer = null; }
+      state.dashboard = null;
+      persist();
     },
 
     async enableSync() {

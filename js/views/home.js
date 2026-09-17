@@ -79,6 +79,12 @@ export function render(root, ctx) {
                 <div><h3>השיעורים בדרך</h3><p>ברגע שהם מוכנים, אפשר להתחיל כאן.</p></div>
               </div>`
         }
+        <div class="quick-links">
+          <a class="quick-link" href="#/tests">${icon('okc')}<span>מבחנים</span></a>
+          <a class="quick-link" href="#/sims">${icon('trend')}<span>סימולציות</span></a>
+          <a class="quick-link" href="#/dashboard">${icon('wallet')}<span>הכסף שלי</span></a>
+          <a class="quick-link" href="#/sheets">${icon('doc')}<span>דפי עזר</span></a>
+        </div>
         ${
           pilotRows
             ? `<div class="urgent">

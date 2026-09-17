@@ -568,3 +568,158 @@ body.is-offline .offline-banner { display: flex; }
   .nb.next { margin-inline-start: 0; }
   .quiz-fields, .calc-fields { flex-direction: column; }
 }
+
+/* =====================================================================
+   SPEC-EXTRAS.md additions: tests, simulations, dashboard, printable
+   sheets. Same tokens/classes as above; nothing here introduces a new
+   color, only reuses --acc/--wrong/--muted per SPEC.md §1.
+   ===================================================================== */
+
+/* ---- home quick-links row (SPEC-EXTRAS §2) + reused on the top nav /
+   drawer, which already had their own link styling ---- */
+.quick-links { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 18px; }
+.quick-link {
+  display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center;
+  background: var(--sheet); border: 1px solid var(--rule); border-radius: var(--radius-md);
+  padding: 16px 10px; font-size: 13.5px; font-weight: 600; color: var(--ink);
+  transition: border-color 180ms ease-out, color 180ms ease-out;
+}
+.quick-link svg.i { color: var(--acc); }
+.quick-link:hover { border-color: var(--acc); color: var(--acc); }
+
+/* ---- shared list screens: #/tests, #/sims, #/sheets ---- */
+.list-page { max-width: 820px; margin: 0 auto; padding: 40px 24px 60px; }
+.list-page h1 { font-family: 'Frank Ruhl Libre', serif; font-size: 30px; margin: 0 0 10px; }
+.list-page-lead { color: var(--muted); font-size: 15.5px; margin: 0 0 24px; }
+.list-subhead { font-size: 22px; margin: 30px 0 14px; }
+.list-cards { display: flex; flex-direction: column; gap: 10px; }
+.list-card {
+  display: flex; align-items: center; gap: 14px; background: var(--sheet); border: 1px solid var(--rule);
+  border-radius: var(--radius-md); padding: 16px 20px; color: var(--muted);
+}
+.list-card svg.i { flex: none; color: var(--muted); }
+.list-card:not(.soon):hover { border-color: var(--acc); }
+.list-card.soon { color: #a89f8e; }
+.list-card-main { flex: 1; min-width: 0; }
+.list-card-title { font-weight: 700; font-size: 16.5px; color: var(--ink); }
+.list-card.soon .list-card-title { color: #a89f8e; }
+.list-card-title a { color: inherit; }
+.list-card-title a:hover { color: var(--acc); }
+.list-card-summary { font-size: 14px; margin-top: 3px; }
+.list-card-meta { font-size: 13px; margin-top: 6px; }
+
+.back-link { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); font-size: 14px; font-weight: 600; margin-bottom: 16px; }
+.back-link:hover { color: var(--acc); }
+
+/* ---- test run screen (#/test/<id>): reuses .quiz/.quiz-q/.opt/.quiz-feedback
+   from the per-lesson quiz almost verbatim, plus a lesson-link on wrong
+   answers and (for the final exam) a score band under the score ---- */
+.test-page .quiz-summary { text-align: start; }
+.test-back-to-lesson { display: inline-block; margin-top: 8px; font-size: 13.5px; text-decoration: underline; text-underline-offset: 2px; color: inherit; }
+.test-back-to-lesson:hover { color: var(--acc); }
+
+/* ---- simulation run screen (#/sim/<id>) ---- */
+.sim-progress { display: flex; align-items: center; gap: 14px; font-size: 13.5px; color: var(--muted); font-weight: 600; margin-bottom: 20px; }
+.sim-progress .bar { flex: 1; max-width: 220px; }
+.sim-question { font-size: 18px; font-weight: 700; margin: 0 0 16px; }
+.sim-choices { display: flex; flex-direction: column; gap: 8px; margin-bottom: 18px; }
+.sim-choice {
+  display: block; width: 100%; text-align: start; background: var(--sheet); border: 1px solid var(--rule);
+  border-radius: var(--radius-sm); padding: 13px 16px; font-size: 15.5px; color: inherit;
+  transition: border-color 150ms ease-out, background 150ms ease-out;
+}
+.sim-choice:hover:not(:disabled) { border-color: #cbbf9f; }
+.sim-choice:disabled { cursor: default; }
+.sim-choice.picked.pts-2 { border-color: var(--acc); background: var(--acc-soft); }
+.sim-choice.picked.pts-1 { border-color: var(--ink); }
+.sim-choice.picked.pts-0 { border-color: var(--wrong); }
+.sim-feedback { background: var(--acc-soft); border-radius: var(--radius-md); padding: 14px 18px; margin-bottom: 18px; font-size: 14.5px; }
+.sim-feedback p { margin: 4px 0 0; }
+.sim-feedback.is-wrong { background: #f4e2da; color: var(--wrong); }
+.sim-feedback .test-back-to-lesson { color: inherit; }
+.sim-end-score { text-align: center; background: var(--sheet); border: 1px solid var(--rule); border-radius: var(--radius-lg); padding: 22px 26px; margin-bottom: 24px; }
+.sim-end-score p:last-child { color: var(--muted); margin: 6px 0 0; }
+
+/* ---- dashboard (#/dashboard) ---- */
+.dash-page { max-width: 900px; margin: 0 auto; }
+.dash-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.dash-head .lesson-title { margin: 0; }
+.dash-note { color: var(--muted); font-size: 14px; margin: 6px 0 22px; }
+.dash-tabs { display: flex; gap: 8px; margin-bottom: 20px; }
+.dash-tab {
+  background: var(--paper); border: 1px solid var(--rule); border-radius: 999px; padding: 9px 20px;
+  font-weight: 700; font-size: 14.5px; color: var(--muted);
+}
+.dash-tab.on { background: var(--ink); color: var(--sheet); border-color: var(--ink); }
+.dash-tab:not(.on):hover { border-color: var(--acc); color: var(--acc); }
+
+.dash-h { font-family: 'Frank Ruhl Libre', serif; font-size: 19px; margin: 0 0 12px; }
+.dash-h:not(:first-child) { margin-top: 30px; }
+.dash-rows { display: flex; flex-direction: column; gap: 8px; }
+.dash-row { display: flex; gap: 10px; flex-wrap: wrap; }
+.dash-row .dash-field-label { flex: 1; min-width: 160px; }
+.dash-row .dash-field-amount { width: 140px; }
+.dash-field { display: flex; flex-direction: column; gap: 4px; }
+.dash-field input[type="text"], .dash-field input[type="number"] {
+  background: var(--paper); border: 1px solid var(--rule); border-radius: var(--radius-sm);
+  padding: 9px 12px; font-size: 15px; color: var(--ink); width: 100%;
+}
+.dash-field-amount { position: relative; }
+.dash-field-amount input { padding-inline-end: 30px; }
+.dash-field-amount .suffix, .dash-goal .suffix, .dash-setaside .suffix {
+  position: absolute; inset-inline-end: 12px; bottom: 0; height: 42px; display: flex; align-items: center;
+  color: var(--muted); font-size: 13.5px; pointer-events: none;
+}
+.dash-col-label { font-size: 12.5px; color: var(--muted); font-weight: 600; }
+
+.dash-totals { margin-top: 16px; padding-top: 14px; border-top: 1px dashed var(--rule); }
+.dash-total-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; font-size: 15px; color: var(--muted); }
+.dash-total-row span:first-child { color: var(--muted); }
+.dash-total-main { font-weight: 700; color: var(--ink); font-size: 17px; }
+.dash-total-main .v { color: var(--acc); font-size: 22px; font-family: 'Frank Ruhl Libre', serif; }
+
+.dash-goal, .dash-setaside { display: flex; gap: 14px; align-items: flex-end; flex-wrap: wrap; }
+.dash-goal .dash-field, .dash-setaside .dash-field { position: relative; width: 200px; }
+.dash-goal-result, .dash-setaside-result { font-size: 15px; padding-bottom: 9px; }
+.dash-hint { color: var(--muted); font-size: 13.5px; margin-top: 10px; }
+
+.dash-months-wrap { padding: 4px 0; border: 0; }
+.dash-month-head { display: grid; grid-template-columns: 1.2fr 1fr 1fr 1fr 1fr 1fr; gap: 10px; padding: 0 2px 6px; min-width: 620px; }
+.dash-month-row { display: grid; grid-template-columns: 1.2fr 1fr 1fr 1fr 1fr 1fr; gap: 10px; align-items: end; padding: 8px 2px; min-width: 620px; border-top: 1px dotted var(--rule); }
+.dash-month-row:first-child { border-top: 0; }
+.dash-month-row .dash-field { min-width: 0; }
+.dash-month-profit { display: flex; flex-direction: column; gap: 4px; font-weight: 700; }
+.dash-month-profit .v { color: var(--acc); }
+
+.dash-ceiling { margin-bottom: 4px; }
+.dash-ceiling .bar { height: 8px; margin-bottom: 8px; }
+.dash-ceiling-nums { display: flex; justify-content: space-between; font-size: 13.5px; color: var(--muted); flex-wrap: wrap; gap: 6px; }
+
+/* ---- printable sheets (#/sheets, #/sheet/<id>) ---- */
+.sheet-print-bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 4px; }
+.sheet-print-bar .back-link { margin-bottom: 0; }
+
+@media print {
+  .no-print, .top, .drawer, .drawer-backdrop, .offline-banner, .lesson-nav, .side, .skip-link { display: none !important; }
+  html, body { background: #fff; }
+  .sheet-print-page { padding: 12mm 10mm; max-width: none; }
+  .sheet-print-page .blk-list li { list-style: none; position: relative; padding-inline-start: 22px; margin-bottom: 7px; }
+  .sheet-print-page .blk-list li::before {
+    content: ''; position: absolute; inset-inline-start: 0; top: 3px;
+    width: 13px; height: 13px; border: 1px solid #555; border-radius: 2px;
+  }
+  .sheet-print-page .sheet { border: 0; background: #fff; padding: 0; }
+  .sheet-print-page .box, .sheet-print-page .receipt, .sheet-print-page .table-wrap { break-inside: avoid; border-color: #999; }
+  .sheet-print-page .blk-table th, .sheet-print-page .blk-table td { border-color: #999; }
+}
+
+/* ---- responsive: dashboard tables stay inside the viewport at 390px
+   (SPEC-EXTRAS §2: "dashboard tables → stacked or horizontally scrollable
+   inner container") ---- */
+@media (max-width: 900px) {
+  .quick-links { grid-template-columns: repeat(2, 1fr); }
+  .dash-row .dash-field-label { min-width: 0; flex-basis: 100%; }
+  .dash-row .dash-field-amount { width: 100%; }
+  .dash-goal, .dash-setaside { flex-direction: column; align-items: stretch; }
+  .dash-goal .dash-field, .dash-setaside .dash-field { width: 100%; }
+}

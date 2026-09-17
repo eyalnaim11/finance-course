@@ -11,6 +11,13 @@ import * as searchView from './views/search.js';
 import * as glossaryView from './views/glossary.js';
 import * as sourcesView from './views/sources.js';
 import * as loginView from './views/login.js';
+import * as testsView from './views/tests.js';
+import * as testView from './views/test.js';
+import * as simsView from './views/sims.js';
+import * as simView from './views/sim.js';
+import * as dashboardView from './views/dashboard.js';
+import * as sheetsView from './views/sheets.js';
+import * as sheetView from './views/sheet.js';
 
 injectIconSprite();
 
@@ -43,6 +50,10 @@ appEl.innerHTML = `
       <input type="search" id="top-search-input" placeholder="חיפוש: מע״מ, תלוש, חשבונית">
     </div>
     <nav class="toplinks" aria-label="ניווט עליון">
+      <a href="#/tests">מבחנים</a>
+      <a href="#/sims">סימולציות</a>
+      <a href="#/dashboard">הכסף שלי</a>
+      <a href="#/sheets">דפי עזר</a>
       <a href="#/glossary">מילון</a>
       <a href="#/sources">מקורות</a>
       <a href="#/login" class="sync-pill" id="sync-pill"></a>
@@ -88,6 +99,10 @@ updateSyncPill();
 document.getElementById('menu-toggle').addEventListener('click', () => {
   openDrawer(`
     <nav>
+      <a class="drawer-link" href="#/tests">${icon('okc')}מבחנים</a>
+      <a class="drawer-link" href="#/sims">${icon('trend')}סימולציות</a>
+      <a class="drawer-link" href="#/dashboard">${icon('wallet')}הכסף שלי</a>
+      <a class="drawer-link" href="#/sheets">${icon('doc')}דפי עזר</a>
       <a class="drawer-link" href="#/glossary">${icon('book')}מילון</a>
       <a class="drawer-link" href="#/sources">${icon('link')}מקורות</a>
       <a class="drawer-link" href="#/login">${icon(store.getSyncStatus() === 'synced' ? 'cloud' : 'cloud-off')}${STATUS_TEXT[store.getSyncStatus()] || STATUS_TEXT.local}</a>
@@ -148,6 +163,20 @@ async function route() {
     await sourcesView.render(mainEl, ctx);
   } else if (parts[0] === 'login') {
     loginView.render(mainEl, ctx);
+  } else if (parts[0] === 'tests' && !parts[1]) {
+    await testsView.render(mainEl, ctx);
+  } else if (parts[0] === 'test' && parts[1]) {
+    await testView.render(mainEl, ctx, { id: parts[1] });
+  } else if (parts[0] === 'sims' && !parts[1]) {
+    await simsView.render(mainEl, ctx);
+  } else if (parts[0] === 'sim' && parts[1]) {
+    await simView.render(mainEl, ctx, { id: parts[1] });
+  } else if (parts[0] === 'dashboard') {
+    await dashboardView.render(mainEl, ctx);
+  } else if (parts[0] === 'sheets' && !parts[1]) {
+    await sheetsView.render(mainEl, ctx);
+  } else if (parts[0] === 'sheet' && parts[1]) {
+    await sheetView.render(mainEl, ctx, { id: parts[1] });
   } else {
     homeView.render(mainEl, ctx);
   }
