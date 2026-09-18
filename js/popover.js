@@ -56,7 +56,7 @@ function position(anchor) {
 // glossary display style (SPEC.md §5): English first then Hebrew, pipe
 // separated, no em dash: "Chargeback | חיוב חוזר".
 export function termHeading(term) {
-  return term.en ? `${escapeHtml(term.en)} | ${escapeHtml(term.he)}` : escapeHtml(term.he);
+  return term.en ? `${escapeHtml(term.he)} | ${escapeHtml(term.en)}` : escapeHtml(term.he);
 }
 
 export function openTermPopover(termId, anchor) {
