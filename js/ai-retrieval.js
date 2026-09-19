@@ -87,7 +87,109 @@ export function extractQuestionWords(question) {
 function wordVariants(w) {
   const variants = [w];
   if (w.length > 1 && PREFIX_LETTERS.has(w[0]) && w.length - 1 >= 3) variants.push(w.slice(1));
+  // Hebrew plural/singular endings. Stripping them turns both "חשבונית" and
+  // "חשבוניות" into the shared stem "חשבוני", which then substring-matches
+  // either form. Only applied when at least 3 characters remain, same floor
+  // as the prefix rule, so short words are never reduced to noise.
+  for (const base of [...variants]) {
+    for (const suffix of ['יות', 'ות', 'ים', 'ת', 'ה']) {
+      if (base.endsWith(suffix) && base.length - suffix.length >= 3) {
+        const stem = base.slice(0, base.length - suffix.length);
+        if (!variants.includes(stem)) variants.push(stem);
+        break;
+      }
+    }
+  }
   return variants;
+}
+
+// questions that are really asking for a number ("כמה", "תקרה", "אחוז",
+// "מתי") should prefer sentences that actually contain one.
+const NUMERIC_HINTS = ['כמה', 'תקרה', 'תקרת', 'אחוז', 'אחוזים', 'שיעור', 'מתי', 'עד', 'מחיר', 'עולה', 'סכום'];
+
+export function questionWantsNumber(question) {
+  const norm = normalizeWithMap(String(question || '')).norm;
+  return NUMERIC_HINTS.some((h) => norm.includes(h));
+}
+
+function splitSentences(raw) {
+  return String(raw || '')
+    .split(/(?<=[.!?:])\s+|\n+/)
+    .map((s) => s.trim())
+    // 25 chars filters out headings and stray fragments; 320 filters out the
+    // long "mistakes"/compare blobs that have no sentence punctuation at all
+    // and would otherwise win on raw word count while reading terribly.
+    .filter((s) => s.length >= 25 && s.length <= 320);
+}
+
+// Best single sentences (not whole blocks) that answer the question. Used by
+// the helper's local mode so the student sees the exact line from the lesson
+// instead of a wall of text.
+export async function findAnswerSentences(question, { currentSlug, limit = 3 } = {}) {
+  const words = extractQuestionWords(question);
+  if (!words.length) return [];
+  const wantsNumber = questionWantsNumber(question);
+  const index = await buildSearchIndex();
+  // Pick the lesson first, then the sentence inside it. Searching every
+  // lesson at once kept surfacing a stray line from an unrelated lesson that
+  // happened to repeat the words ("בהתחלה הוא היה עוסק פטור" from the עוסק
+  // מורשה lesson beat the actual definition).
+  const ranked = await rankLessons(question, { currentSlug });
+  const allowed = new Set(ranked.slice(0, 3).map((r) => r.slug));
+  if (currentSlug) allowed.add(currentSlug);
+  // position of each block inside its own lesson: earlier blocks are the
+  // simple explanation, later ones are practice and quiz
+  const orderBySlug = new Map();
+  const out = [];
+  for (const entry of index) {
+    if (entry.type !== 'lesson' || !entry.raw) continue;
+    const seenSoFar = orderBySlug.get(entry.slug) || 0;
+    orderBySlug.set(entry.slug, seenSoFar + 1);
+    if (allowed.size && !allowed.has(entry.slug)) continue;
+    const earlyBonus = Math.max(0, 1 - seenSoFar / 12) * 0.8;
+    for (const sentence of splitSentences(entry.raw)) {
+      const norm = normalizeWithMap(sentence).norm;
+      const { score } = scoreWithPositions(words, norm);
+      if (!score) continue;
+      const hasNumber = /\d/.test(sentence);
+      let total = score;
+      if (wantsNumber && hasNumber) total += 1.5;
+      if (entry.slug === currentSlug) total += BONUS_CURRENT_LESSON;
+      total += earlyBonus;
+      // a definition line usually opens with the term itself
+      // ("תזרים מזומנים הוא ...") rather than mentioning it in passing
+      const head = normalizeWithMap(sentence.slice(0, 40)).norm;
+      if (words.some((w) => wordVariants(w).some((v) => head.includes(v)))) total += 0.8;
+      // shorter sentences that still match everything read better as answers
+      total += Math.max(0, 1 - sentence.length / 400) * 0.5;
+      // a sentence that is itself a question ("כמה זמן צריך לשמור מסמכים?")
+      // is the lesson asking, not the lesson answering
+      if (/\?\s*$/.test(sentence)) total -= 1.2;
+      // no sentence punctuation at all usually means this is a list or a
+      // table row joined into one line: it matches words but is not a
+      // sentence anyone wants read back as an answer
+      if (!/[.!?]/.test(sentence)) total -= 1.5;
+      // very long lines are usually the "mistakes" comparison blobs: they
+      // match many words but read terribly as an answer
+      if (sentence.length > 220) total -= Math.min(2, (sentence.length - 220) / 150);
+      out.push({ text: sentence, slug: entry.slug, lessonTitle: entry.title, score: total, matched: score });
+    }
+  }
+  const best = Math.max(0, ...out.map((s) => s.matched));
+  // only keep sentences that matched at least as many words as the best one
+  // minus one: a sentence matching 1 of 4 question words is noise.
+  const kept = out.filter((s) => s.matched >= Math.max(1, best - 1));
+  kept.sort((a, b) => b.score - a.score);
+  const seen = new Set();
+  const unique = [];
+  for (const s of kept) {
+    const key = s.text.slice(0, 60);
+    if (seen.has(key)) continue;
+    seen.add(key);
+    unique.push(s);
+    if (unique.length >= limit) break;
+  }
+  return unique;
 }
 
 // score + the normalized positions every match was found at (positions feed
@@ -174,7 +276,13 @@ function trimPassage(raw, norm, map, positions) {
 // characters each (so at most 3500 characters total). currentSlug (the
 // lesson the student has open right now, if any) gets a small score bonus so
 // it is preferred on close calls, per the approved design.
-export async function findPassages(question, { currentSlug } = {}) {
+// lesson-level ranking shared by findPassages() and findAnswerSentences()
+export async function rankLessons(question, { currentSlug } = {}) {
+  const scored = await scoreLessons(question, { currentSlug });
+  return scored.map((s) => ({ slug: s.slug, lessonTitle: s.lessonTitle, score: s.score }));
+}
+
+async function scoreLessons(question, { currentSlug } = {}) {
   const words = extractQuestionWords(question);
   const index = await buildSearchIndex();
   const groups = groupLessonEntries(index);
@@ -193,7 +301,11 @@ export async function findPassages(question, { currentSlug } = {}) {
   }
 
   scored.sort((a, b) => b.score - a.score);
+  return scored;
+}
 
+export async function findPassages(question, { currentSlug } = {}) {
+  const scored = await scoreLessons(question, { currentSlug });
   return scored.slice(0, MAX_PASSAGES).map((s) => ({
     slug: s.slug,
     lessonTitle: s.lessonTitle,

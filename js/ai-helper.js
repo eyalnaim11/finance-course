@@ -16,7 +16,7 @@
 import { aiConfig } from '../ai-config.js';
 import { icon, injectIconSprite } from './icons.js';
 import { escapeHtml } from './render-blocks.js';
-import { findPassages } from './ai-retrieval.js';
+import { findPassages, findAnswerSentences } from './ai-retrieval.js';
 import { getLesson } from '../content/course.js';
 import { OSEK_PATUR_CEILING_2026 } from '../content/constants.js';
 import { defaultDashboard } from './views/dashboard.js';
@@ -185,7 +185,18 @@ export function mountAiHelper(ctx) {
       typeof m.remaining === 'number' && m.remaining <= 3
         ? `<div class="ai-remaining">נשארו לך היום ${m.remaining} שאלות</div>`
         : '';
-    return `<div class="ai-msg ai-msg-bot${m.isFallback ? ' is-fallback' : ''}">${escapeHtml(m.content)}${lessonLinks ? `<div class="ai-lesson-links">${lessonLinks}</div>` : ''}${passageCards}${remainingLine}</div>`;
+    const quotes = (m.quotes || [])
+      .map(
+        (q) => `<blockquote class="ai-quote">
+          <p>${escapeHtml(q.text)}</p>
+          <a class="ai-lesson-link" href="#/lesson/${escapeHtml(q.slug)}/learn">מתוך: ${escapeHtml(q.lessonTitle)}</a>
+        </blockquote>`
+      )
+      .join('');
+    const moreBlock = passageCards
+      ? `<details class="ai-more"><summary>עוד קטעים מהקורס</summary>${passageCards}</details>`
+      : '';
+    return `<div class="ai-msg ai-msg-bot${m.isFallback ? ' is-fallback' : ''}">${escapeHtml(m.content)}${quotes}${lessonLinks ? `<div class="ai-lesson-links">${lessonLinks}</div>` : ''}${m.quotes && m.quotes.length ? moreBlock : passageCards}${remainingLine}</div>`;
   }
 
   function renderMessages() {
@@ -213,12 +224,18 @@ export function mountAiHelper(ctx) {
     return (lastStop > 90 ? cut.slice(0, lastStop + 1) : cut.trim()) + '…';
   }
 
-  function renderFallback(passages, notSetUp) {
-    const withText = notSetUp ? NOT_SET_UP_WITH_PASSAGES : FALLBACK_WITH_PASSAGES;
+  function renderFallback(passages, notSetUp, quotes) {
+    const found = (quotes && quotes.length) || passages.length;
+    const withText = quotes && quotes.length
+      ? 'הנה מה שכתוב על זה בקורס.'
+      : notSetUp
+      ? NOT_SET_UP_WITH_PASSAGES
+      : FALLBACK_WITH_PASSAGES;
     const noneText = notSetUp ? NOT_SET_UP_NO_PASSAGES : FALLBACK_NO_PASSAGES;
     pushHistory({
       role: 'assistant',
-      content: passages.length ? withText : noneText,
+      content: found ? withText : noneText,
+      quotes: (quotes || []).map((q) => ({ text: q.text, slug: q.slug, lessonTitle: q.lessonTitle })),
       isFallback: true,
       passages: passages.slice(0, 3).map((p) => ({ slug: p.slug, lessonTitle: p.lessonTitle, text: shortenPassage(p.text) })),
     });
@@ -257,12 +274,16 @@ export function mountAiHelper(ctx) {
     sendBtn.textContent = 'חושב';
 
     let passages = [];
+    let quotes = [];
     try {
       const currentSlug = getCurrentLessonSlug();
-      passages = await findPassages(question, { currentSlug });
+      [passages, quotes] = await Promise.all([
+        findPassages(question, { currentSlug }),
+        findAnswerSentences(question, { currentSlug, limit: 3 }),
+      ]);
 
       if (!aiConfig.workerUrl) {
-        renderFallback(passages, true);
+        renderFallback(passages, true, quotes);
         return;
       }
 
@@ -285,25 +306,25 @@ export function mountAiHelper(ctx) {
       }
 
       if (!res.ok) {
-        renderFallback(passages);
+        renderFallback(passages, false, quotes);
         return;
       }
       let data;
       try {
         data = await res.json();
       } catch (e) {
-        renderFallback(passages);
+        renderFallback(passages, false, quotes);
         return;
       }
       if (!data || typeof data.answer !== 'string' || !data.answer.trim()) {
-        renderFallback(passages);
+        renderFallback(passages, false, quotes);
         return;
       }
       renderAssistantAnswer(data);
     } catch (e) {
       // offline, timeout (AbortError), DNS failure, CORS rejection, etc. all
       // land here: never leave the student with nothing (approved decision 4).
-      renderFallback(passages);
+      renderFallback(passages, false, quotes);
     } finally {
       isSending = false;
       sendBtn.disabled = false;

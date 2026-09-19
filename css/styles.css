@@ -812,3 +812,12 @@ body.is-offline .offline-banner { display: flex; }
 @media print {
   #ai-helper-root { display: none !important; }
 }
+
+.ai-quote {
+  margin: 10px 0 0; padding: 10px 12px; background: var(--acc-soft);
+  border: 1px solid var(--rule); border-radius: var(--radius-sm);
+}
+.ai-quote p { margin: 0 0 6px; font-size: 14px; line-height: 1.6; }
+.ai-more { margin-top: 10px; }
+.ai-more > summary { cursor: pointer; font-size: 13px; color: var(--muted); }
+.ai-more > summary:hover { color: var(--acc); }
