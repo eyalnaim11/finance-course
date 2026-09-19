@@ -25,6 +25,7 @@
 <script type="module">
 import { processBlocks, moneyText, moneyHtml, parseInline, stripMarkup } from './js/render-blocks.js';
 import { search, buildSearchIndex } from './js/search.js';
+import { scorePassage, extractQuestionWords, findPassages } from './js/ai-retrieval.js';
 import fixture from './content/lessons/_fixture.js';
 import { glossary } from './content/glossary.js';
 import { sources } from './content/sources.js';
@@ -117,6 +118,32 @@ await check('אינדקס החיפוש כולל מילון ומקורות', asyn
   const index = await buildSearchIndex();
   assert(index.some((e) => e.type === 'glossary'), 'אין ערכי מילון באינדקס');
   assert(index.some((e) => e.type === 'source'), 'אין ערכי מקורות באינדקס');
+});
+
+// --- AI helper retrieval (js/ai-retrieval.js) ---
+await check('AI: scorePassage סופר מילות שאלה נבדלות ולא מוצא כשאין התאמה', () => {
+  const found = scorePassage(['עוסק', 'פטור'], 'כל עוסק פטור לא גובה מעמ. עוסק פטור לא חייב להגיש דוח למעמ.');
+  assert(found === 2, `ציפינו לציון 2 קיבלנו ${found}`);
+  const missing = scorePassage(['אוטובוס', 'רכבת'], 'כל עוסק פטור לא גובה מעמ.');
+  assert(missing === 0, `ציפינו לציון 0 קיבלנו ${missing}`);
+});
+
+await check('AI: scorePassage מזהה מילת שאלה גם עם אות יחס בהתחלה (ב/ו/ל/מ/ש/כ/ה)', () => {
+  const withPrefix = scorePassage(['בעסק'], 'התלמיד פתח עסק קטן בבית שלו');
+  assert(withPrefix === 1, `ציפינו לציון 1 קיבלנו ${withPrefix}`);
+});
+
+await check('AI: extractQuestionWords מסנן מילות שאלה נפוצות (מה/זה/על...)', () => {
+  const words = extractQuestionWords('מה זה עוסק פטור');
+  assert(words.join(',') === 'עוסק,פטור', `קיבלנו: ${words.join(',')}`);
+});
+
+await check('AI: findPassages מחזיר את השיעור לדוגמה ומכבד את מגבלת 700 התווים לקטע', async () => {
+  const passages = await findPassages('מה זה מעמ על קבלה', { currentSlug: null });
+  assert(passages.length > 0, 'לא חזרו קטעים בכלל');
+  assert(passages.every((p) => p.text.length <= 700), 'קטע חרג מ-700 תווים');
+  assert(passages[0].slug === '_fixture', `ציפינו שהשיעור לדוגמה יהיה ראשון, קיבלנו ${passages[0] && passages[0].slug}`);
+  return `${passages.length} קטעים, הראשון: ${passages[0].lessonTitle}`;
 });
 
 function render() {

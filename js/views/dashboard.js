@@ -13,7 +13,10 @@ import { OSEK_PATUR_CEILING_2026 } from '../../content/constants.js';
 // example data preloaded on first visit (SPEC-EXTRAS.md §2). Generic, no
 // personal info. store.getDashboard() returns null until the student edits
 // something, at which point their edits replace these defaults entirely.
-function defaultDashboard() {
+// Exported so the AI helper (js/ai-helper.js) can send the same example
+// numbers the student is actually looking at when nothing is saved yet,
+// instead of guessing or duplicating this object.
+export function defaultDashboard() {
   return {
     personal: {
       income: [

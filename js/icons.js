@@ -34,6 +34,7 @@ export const ICON_SPRITE_HTML = `
   <symbol id="i-chevron-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
   <symbol id="i-wifi-off" viewBox="0 0 24 24"><path d="M3 3l18 18M8.5 12a7 7 0 0 1 4-1.5M5 8.5a11 11 0 0 1 3.3-2M12.5 15.5a2.5 2.5 0 0 1 2.6.6M16 12a7 7 0 0 1 2.5.9M19 8.5a11 11 0 0 1 2 1.4M12 19.5v.01"/></symbol>
   <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><rect x="3.5" y="4.5" width="17" height="12" rx="4"/><path d="M8 16.5v3l4-3"/></symbol>
 </svg>`;
 
 export function injectIconSprite() {

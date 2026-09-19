@@ -5,13 +5,14 @@
 // the result. Cross-origin requests (YouTube, Firebase/gstatic) are left
 // untouched by this service worker entirely, so they are always network-only
 // per SPEC.md §7. nothing here intercepts them.
-const CACHE_NAME = 'finance-course-v15';
+const CACHE_NAME = 'finance-course-v16';
 
 const SHELL_FILES = [
   './',
   './index.html',
   './manifest.webmanifest',
   './firebase-config.js',
+  './ai-config.js',
   './css/styles.css',
   './assets/fonts/fonts.css',
   './assets/fonts/heebo-400-hebrew.woff2',
@@ -25,6 +26,8 @@ const SHELL_FILES = [
   './assets/fonts/frank-ruhl-libre-900-hebrew.woff2',
   './assets/fonts/frank-ruhl-libre-900-latin.woff2',
   './js/app.js',
+  './js/ai-helper.js',
+  './js/ai-retrieval.js',
   './js/store.js',
   './js/firebase-adapter.js',
   './js/icons.js',

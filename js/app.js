@@ -18,6 +18,7 @@ import * as simView from './views/sim.js';
 import * as dashboardView from './views/dashboard.js';
 import * as sheetsView from './views/sheets.js';
 import * as sheetView from './views/sheet.js';
+import { mountAiHelper } from './ai-helper.js';
 
 injectIconSprite();
 
@@ -141,6 +142,10 @@ const ctx = {
   consumePendingHighlight,
   rerender: () => route(),
 };
+
+// mounted once, appended to document.body (outside #app), so it survives
+// every hash-route swap of #main-content below.
+mountAiHelper(ctx);
 
 async function route() {
   closePopover();

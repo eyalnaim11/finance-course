@@ -1,0 +1,28 @@
+# worker/wrangler.toml : reference config for the AI helper's Worker.
+# You do NOT need this file if you set everything up by hand in the
+# Cloudflare dashboard (see README.md in this folder, that is the
+# recommended path). It is here in case you ever want to deploy with the
+# `wrangler` command-line tool instead.
+#
+# No secrets in this file. GEMINI_KEY and OWNER_CODE must be added as
+# encrypted variables (dashboard: Worker -> Settings -> Variables and
+# Secrets -> "Encrypt") or with `wrangler secret put`, never written here.
+
+name = "finance-course-ai"
+main = "worker.js"
+compatibility_date = "2026-09-19"
+
+# plain (non-secret) variables. ALLOWED_ORIGIN must be the exact site origin
+# the helper is served from, no trailing slash. MODEL can be changed later
+# without touching worker.js -- see README.md for how to check which model
+# names your key can use.
+[vars]
+ALLOWED_ORIGIN = "https://eyalnaim11.github.io"
+MODEL = "gemini-3.5-flash-lite"
+
+# the KV namespace used for the daily question counters (worker.js keys:
+# d:<date>:<ip> and d:<date>:total). Replace the id below with the id you
+# get when you create the namespace -- README.md shows where to find it.
+[[kv_namespaces]]
+binding = "RL"
+id = "REPLACE_WITH_YOUR_KV_NAMESPACE_ID"
