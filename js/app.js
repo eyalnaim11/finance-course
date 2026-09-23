@@ -1,7 +1,7 @@
 // js/app.js : boot + hash router. Builds the persistent shell (top bar,
 // mobile drawer, offline banner, popover host) once, then swaps the main
 // content on every hash change.
-import { createStore } from './store.js';
+import { createStore, SYNC_FLAG_KEY } from './store.js';
 import { injectIconSprite, icon } from './icons.js';
 import { closePopover } from './popover.js';
 import { debounce } from './search.js';
@@ -23,6 +23,24 @@ import { mountAiHelper } from './ai-helper.js';
 injectIconSprite();
 
 const store = createStore();
+
+// Reconnect sync by itself on every launch for anyone who signed in before.
+// Two signals: our own flag (set after a successful sign-in) or an existing
+// Firebase auth database on this origin (the planner app shares the origin
+// and the Firebase project, so signing in there counts too). Anonymous
+// visitors never download the Firebase SDK.
+(async () => {
+  if (!navigator.onLine) return;
+  let signedInBefore = false;
+  try { signedInBefore = localStorage.getItem(SYNC_FLAG_KEY) === '1'; } catch (e) { /* storage blocked */ }
+  if (!signedInBefore && indexedDB && indexedDB.databases) {
+    try {
+      const dbs = await indexedDB.databases();
+      signedInBefore = dbs.some((d) => d && d.name === 'firebaseLocalStorageDb');
+    } catch (e) { /* not supported */ }
+  }
+  if (signedInBefore) store.enableSync();
+})();
 let pendingHighlight = null;
 
 function setPendingHighlight(v) {

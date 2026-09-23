@@ -19,6 +19,8 @@
 import { firebaseConfig } from '../firebase-config.js';
 
 const LOCAL_KEY = 'finance-course:progress:v1';
+// set after a successful sign-in so later launches reconnect by themselves
+export const SYNC_FLAG_KEY = 'finance-course:sync-enabled';
 const STAGE_KEYS = ['start', 'learn', 'practice', 'quiz', 'finish'];
 const DASHBOARD_DEBOUNCE_MS = 400;
 
@@ -182,6 +184,10 @@ export function createStore() {
       state = mergeProgress(state, remote);
       writeLocal(state);
     }
+    // push the merged result right away: otherwise progress made on this
+    // device before signing in only reaches the cloud on the next change
+    firebaseSync.writeDebounced(uid, state);
+    try { localStorage.setItem(SYNC_FLAG_KEY, '1'); } catch (e) { /* storage blocked */ }
     syncStatus = 'synced';
     firebaseSync.watch(uid, (data) => {
       if (data) {
@@ -331,6 +337,7 @@ export function createStore() {
       if (!firebaseSync) await api.enableSync();
       if (!firebaseSync) throw new Error('sync-unavailable');
       const user = await firebaseSync.signIn(email, password);
+      try { localStorage.setItem(SYNC_FLAG_KEY, '1'); } catch (e) { /* storage blocked */ }
       await bindUser(user);
       return user;
     },
