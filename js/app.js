@@ -204,4 +204,7 @@ if ('serviceWorker' in navigator) {
   };
   if (document.readyState === 'complete') registerSW();
   else window.addEventListener('load', registerSW);
+
+  // update-reload listener lives in an inline script at the top of index.html
+  // so it is attached before the new service worker can take control
 }

@@ -3,6 +3,21 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+  // A new deploy installs a new service worker that takes control while this
+  // page still runs the old files. Reload once so the update shows now and
+  // not only on the next launch. Must run before anything else loads.
+  (function () {
+    if (!('serviceWorker' in navigator)) return;
+    var hadController = !!navigator.serviceWorker.controller;
+    var done = false;
+    navigator.serviceWorker.addEventListener('controllerchange', function () {
+      if (!hadController || done) return;
+      done = true;
+      window.location.reload();
+    });
+  })();
+</script>
 <title>כסף מגיל 16</title>
 <meta name="description" content="קורס כסף, בנק, עבודה, מסים ודרופשיפינג בעברית פשוטה, מגיל 16.">
 <meta name="theme-color" content="#2f5d4b">
