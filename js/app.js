@@ -100,6 +100,7 @@ updateSyncPill();
 document.getElementById('menu-toggle').addEventListener('click', () => {
   openDrawer(`
     <nav>
+      <a class="drawer-link" href="#/search">${icon('search')}חיפוש</a>
       <a class="drawer-link" href="#/tests">${icon('okc')}מבחנים</a>
       <a class="drawer-link" href="#/sims">${icon('trend')}סימולציות</a>
       <a class="drawer-link" href="#/dashboard">${icon('wallet')}הכסף שלי</a>

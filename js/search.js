@@ -35,7 +35,10 @@ function normalizeWithMap(text) {
 function queryVariants(rawQuery) {
   const { norm } = normalizeWithMap(String(rawQuery || '').trim());
   const variants = [norm];
-  if (norm.length > 1 && PREFIX_LETTERS.has(norm[0])) {
+  // strip one leading ה/ו/ב/ל/מ/ש/כ only when at least 3 letters remain:
+  // "מעמ" (VAT) starts with מ, and stripping it to "עמ" matched inside
+  // "עמלות" (fees) so the fees lesson came up first for a VAT search
+  if (norm.length - 1 >= 3 && PREFIX_LETTERS.has(norm[0])) {
     variants.push(norm.slice(1));
   }
   return variants.filter((v) => v.length > 0);
