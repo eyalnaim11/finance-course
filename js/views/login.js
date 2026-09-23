@@ -30,7 +30,9 @@ export function render(root, ctx) {
                 <input type="password" id="login-password" autocomplete="current-password" required>
               </div>
               <button type="submit" class="btn">מתחברים</button>
+              <button type="button" class="login-forgot" id="login-forgot">שכחתי סיסמה</button>
               <p class="login-error" id="login-error" hidden></p>
+              <p class="login-note" id="login-note" hidden></p>
             </form>`
       }
       <p class="login-status">אין חובה להתחבר. הכל עובד גם ככה, ונשמר במכשיר הזה.</p>
@@ -57,6 +59,32 @@ export function render(root, ctx) {
         btn.disabled = false;
         btn.textContent = 'מתחברים';
       }
+    });
+
+    const forgotBtn = root.querySelector('#login-forgot');
+    forgotBtn.addEventListener('click', async () => {
+      const email = root.querySelector('#login-email').value.trim();
+      const errEl = root.querySelector('#login-error');
+      const noteEl = root.querySelector('#login-note');
+      errEl.hidden = true;
+      noteEl.hidden = true;
+      if (!email) {
+        errEl.hidden = false;
+        errEl.textContent = 'תכתוב קודם את האימייל שלך בשדה למעלה ואז תלחץ שוב.';
+        return;
+      }
+      forgotBtn.disabled = true;
+      forgotBtn.textContent = 'שולח...';
+      try {
+        await store.resetPassword(email);
+        noteEl.hidden = false;
+        noteEl.textContent = 'אם יש חשבון עם האימייל הזה נשלח אליו עכשיו מייל עם קישור לסיסמה חדשה. כדאי לבדוק גם בתיקיית הספאם. הסיסמה החדשה תעבוד גם ביומן.';
+      } catch (err) {
+        errEl.hidden = false;
+        errEl.textContent = 'לא הצלחנו לשלוח את המייל. אפשר לבדוק שהאימייל כתוב נכון ולנסות שוב.';
+      }
+      forgotBtn.disabled = false;
+      forgotBtn.textContent = 'שכחתי סיסמה';
     });
   }
 }

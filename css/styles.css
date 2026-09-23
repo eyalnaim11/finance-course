@@ -826,3 +826,6 @@ body.is-offline .offline-banner { display: flex; }
 .ai-more { margin-top: 10px; }
 .ai-more > summary { cursor: pointer; font-size: 13px; color: var(--muted); }
 .ai-more > summary:hover { color: var(--acc); }
+.login-forgot { background: none; border: 0; padding: 6px 0; margin-top: 10px; color: var(--acc); text-decoration: underline; font-size: 14.5px; display: block; }
+.login-forgot:disabled { color: var(--muted); }
+.login-note { background: var(--acc-soft); border: 1px solid var(--rule); border-radius: var(--radius-sm); padding: 10px 12px; font-size: 14.5px; margin-top: 10px; }

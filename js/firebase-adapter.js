@@ -55,6 +55,12 @@ export async function createFirebaseSync(config, { onPermissionDenied } = {}) {
       return cred.user;
     },
 
+    // same Firebase project as the planner, so the new password works there too
+    async resetPassword(email) {
+      auth.languageCode = 'he';
+      await authMod.sendPasswordResetEmail(auth, email);
+    },
+
     async signOut() {
       if (unsubWatch) unsubWatch();
       return authMod.signOut(auth);

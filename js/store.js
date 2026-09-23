@@ -322,6 +322,11 @@ export function createStore() {
         notify();
       }
     },
+    async resetPassword(email) {
+      if (!firebaseSync) await api.enableSync();
+      if (!firebaseSync) throw new Error('sync-unavailable');
+      await firebaseSync.resetPassword(email);
+    },
     async signIn(email, password) {
       if (!firebaseSync) await api.enableSync();
       if (!firebaseSync) throw new Error('sync-unavailable');
